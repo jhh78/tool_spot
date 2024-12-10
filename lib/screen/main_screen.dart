@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/system.dart';
+import 'package:life_secretary/widget/menu_card.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
+}
+
+Widget renderMenuRow(BuildContext context, List<MenuCard> cards) {
+  return Padding(
+    padding: const EdgeInsets.all(12.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: cards.map((card) => card).toList(),
+    ),
+  );
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -17,14 +28,35 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: Text('mainHomeTitle'.tr),
       ),
-      body: const Center(
-        child: Text('Main Screen'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          systemProvider.toggleTheme();
-        },
-        child: const Icon(Icons.brightness_4),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            renderMenuRow(context, [
+              MenuCard(icon: Icons.calendar_today),
+              MenuCard(icon: Icons.map),
+            ]),
+            renderMenuRow(context, [
+              MenuCard(icon: Icons.shopping_cart),
+              MenuCard(icon: Icons.restaurant),
+            ]),
+            renderMenuRow(context, [
+              MenuCard(icon: Icons.directions_car),
+              MenuCard(icon: Icons.local_hospital),
+            ]),
+            renderMenuRow(context, [
+              MenuCard(icon: Icons.school),
+              MenuCard(icon: Icons.work),
+            ]),
+            renderMenuRow(context, [
+              MenuCard(icon: Icons.fitness_center),
+              MenuCard(icon: Icons.local_cafe),
+            ]),
+            renderMenuRow(context, [
+              MenuCard(icon: Icons.movie),
+              MenuCard(icon: Icons.music_note),
+            ]),
+          ],
+        ),
       ),
     );
   }

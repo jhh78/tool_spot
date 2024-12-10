@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         ),
         themeMode: systemProvider.themeMode.value,
         home: UpgradeAlert(
+          barrierDismissible: false,
           showIgnore: false,
           showLater: false,
           child: const MainScreen(),
