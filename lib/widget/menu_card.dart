@@ -1,22 +1,21 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class MenuCard extends StatelessWidget {
   const MenuCard({
     super.key,
     required this.icon,
+    required this.callback,
+    required this.text,
   });
 
   final IconData icon;
+  final Function callback;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {
-        // TODO ::: 메뉴 클릭시 이벤트 추가
-        log('MenuCard Clicked'),
-      },
+      onTap: () => callback(),
       splashColor: Colors.blue.withAlpha(50), // 눌림 효과 색상
       highlightColor: Colors.blue.withAlpha(50), // 강조 색상
       child: Card(
@@ -40,7 +39,7 @@ class MenuCard extends StatelessWidget {
               ),
               SizedBox(
                 child: Text(
-                  'Measdsddsanu',
+                  text,
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.blue[900],
