@@ -6,6 +6,8 @@ import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/widget/menu_card.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -41,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
               MenuCard(
                   icon: Icons.map_outlined,
                   callback: () {
-                    Get.toNamed('/map');
+                    launchUrl(Uri.parse('twitter://'));
                   },
                   text: 'mainMenuMap'.tr),
             ]),
