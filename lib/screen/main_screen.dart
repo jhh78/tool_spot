@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/system.dart';
+import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/widget/menu_card.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
-
-import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -41,11 +38,11 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             renderMenuRow(context, [
               MenuCard(
-                  icon: Icons.map_outlined,
+                  icon: Icons.qr_code_rounded,
                   callback: () {
-                    launchUrl(Uri.parse('twitter://'));
+                    Get.to(() => const QrReaderScreen());
                   },
-                  text: 'mainMenuMap'.tr),
+                  text: 'QrReader'.tr),
             ]),
             // renderMenuRow(context, [
             //   MenuCard(icon: Icons.shopping_cart),

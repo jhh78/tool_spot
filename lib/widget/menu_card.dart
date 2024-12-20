@@ -41,7 +41,7 @@ class MenuCard extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: MediaQuery.of(context).size.width / 30,
                     color: Colors.blue[900],
                   ),
                 ),
