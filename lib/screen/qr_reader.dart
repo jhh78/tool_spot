@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:life_secretary/widget/button/flash.dart';
 import 'package:life_secretary/widget/button/zoom.dart';
 import 'package:life_secretary/widget/clip/rectangle.dart';
+import 'package:life_secretary/widget/paint/rectangle.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -145,7 +146,7 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
                     alignment: Alignment.center,
                     child: CustomPaint(
                       size: Size(scanAreaWidth, scanAreaHeight),
-                      painter: RectangleBorderPainter(),
+                      painter: QrCodeReaderBorderPainter(),
                     ),
                   ),
                 ],
