@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/translate_text.dart';
-import 'package:life_secretary/screen/main_screen.dart';
+import 'package:life_secretary/screen/main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-// TODO ::: 바코드 스캐너 추가
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WakelockPlus.enable();

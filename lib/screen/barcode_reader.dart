@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -5,28 +7,31 @@ import 'package:life_secretary/screen/webview.dart';
 import 'package:life_secretary/widget/button/flash.dart';
 import 'package:life_secretary/widget/button/zoom.dart';
 import 'package:life_secretary/widget/clip/rectangle.dart';
-import 'package:life_secretary/widget/paint/qr_code_reader_border.dart';
+import 'package:life_secretary/widget/paint/bar_code_reader_border.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class QrReaderScreen extends StatefulWidget {
-  const QrReaderScreen({super.key});
+class BarcodeReaderScreen extends StatefulWidget {
+  const BarcodeReaderScreen({super.key});
 
   @override
-  State<QrReaderScreen> createState() => _QrReaderScreenState();
+  State<BarcodeReaderScreen> createState() => _BarcodeReaderScreenState();
 }
 
-class _QrReaderScreenState extends State<QrReaderScreen> {
+class _BarcodeReaderScreenState extends State<BarcodeReaderScreen> {
   MobileScannerController controller = MobileScannerController(
-    formats: [BarcodeFormat.qrCode],
+    formats: [
+      BarcodeFormat.ean13,
+      BarcodeFormat.ean8,
+      BarcodeFormat.upcA,
+      BarcodeFormat.upcE,
+    ],
   );
-  bool isDetecting = false;
-  bool isWebAddress = false;
-  final double scanAreaWidth = 250;
-  final double scanAreaHeight = 250;
+  final double scanAreaWidth = 300;
+  final double scanAreaHeight = 200;
 
   @override
   void initState() {
+    log('BarcodeReaderScreen initState');
     super.initState();
     SystemChrome.setPreferredOrientations(
       [
@@ -42,63 +47,11 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
     await controller.dispose();
   }
 
-  void _handleBarcode(BarcodeCapture barcodes) {
-    if (isDetecting) {
-      return;
-    }
-
+  void _handleBarcode(BarcodeCapture barcodes) async {
     if (mounted) {
-      setState(() {
-        isDetecting = true;
-      });
-
-      final code = barcodes.barcodes.firstOrNull?.rawValue.toString() ?? "";
-
-      Get.dialog(
-        AlertDialog(
-          title: Text(
-            'qrModalTitle'.tr,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'qrModalDescription'.tr,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.red),
-              ),
-              Text('${barcodes.barcodes.firstOrNull?.rawValue}'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  isDetecting = false;
-                });
-                Get.back();
-              },
-              child: Text('close'.tr),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  isDetecting = false;
-                });
-
-                Future.delayed(const Duration(milliseconds: 500), () {
-                  Get.to(() => WebViewScreen(url: code));
-                });
-                Get.back();
-              },
-              child: Text('accessSite'.tr),
-            ),
-          ],
-        ),
-      ).then((_) {
-        setState(() {
-          isDetecting = false;
-        });
+      final barcode = barcodes.barcodes.firstOrNull?.rawValue.toString() ?? "";
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Get.to(() => WebViewScreen(url: 'https://www.google.com/search?q=$barcode'));
       });
     }
   }
@@ -107,7 +60,7 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('qrReaderTitle'.tr),
+        title: Text('barcodeReaderTitle'.tr),
         actions: [
           FlashButtonWidget(controller: controller),
           ZoomButtonWidget(controller: controller),
@@ -146,7 +99,7 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
                     alignment: Alignment.center,
                     child: CustomPaint(
                       size: Size(scanAreaWidth, scanAreaHeight),
-                      painter: QrCodeReaderBorder(),
+                      painter: BarCodeReaderBorder(),
                     ),
                   ),
                 ],

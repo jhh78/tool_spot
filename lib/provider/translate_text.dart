@@ -16,13 +16,15 @@ class TranslateText extends Translations {
           // Button Text
           'close': '닫기',
           'accessSite': '사이트 접속',
+          'detailInfo': '상세정보',
 
           // QR Reader Screen
-          'qrReaderTitle': 'QR 리더',
-          'qrReaderDescription': 'QR 코드를 스캔하여 정보를 확인하세요.',
+          'qrReaderTitle': 'QR스캔',
           'qrModalTitle': 'QR코드를 감지하였습니다',
-          'qrModalDescriptionFail': 'QR코드를 감지하지 못하였습니다',
           'qrModalDescription': '사이트를 이동하시기전에 주소를 확인해주세요',
+
+          // barcode Reader Screen
+          'barcodeReaderTitle': '바코드스캔',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -37,13 +39,16 @@ class TranslateText extends Translations {
           // Button Text
           'close': '閉じる',
           'accessSite': 'サイトアクセス',
+          'detailInfo': '詳細情報',
 
           // QR Reader Screen
           'qrReaderTitle': 'QRリーダー',
           'qrReaderDescription': 'QRコードをスキャンして情報を確認してください。',
           'qrModalTitle': 'QRコードを検出しました',
-          'qrModalDescriptionFail': 'QRコードを検出できませんでした',
           'qrModalDescription': 'アクセスする前にアドレスを確認してください',
+
+          // barcode Reader Screen
+          'barcodeReaderTitle': 'バーコードスキャン',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -58,13 +63,16 @@ class TranslateText extends Translations {
           // Button Text
           'close': 'Close',
           'accessSite': 'Access Site',
+          'detailInfo': 'Detail Info',
 
           // QR Reader Screen
           'qrReaderTitle': 'QR Reader',
           'qrReaderDescription': 'Scan the QR code to check the information.',
           'qrModalTitle': 'Barcode Detected',
-          'qrModalDescriptionFail': 'Failed to detect QR code',
           'qrModalDescription': 'Please check the address before accessing the site.',
+
+          // barcode Reader Screen
+          'barcodeReaderTitle': 'Barcode Scan',
         },
       };
 }

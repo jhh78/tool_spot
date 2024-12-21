@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class QrCodeReaderBorderPainter extends CustomPainter {
+class BarCodeReaderBorder extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -10,9 +10,8 @@ class QrCodeReaderBorderPainter extends CustomPainter {
 
     const double cornerLength = 20;
 
-    // Draw QR code icon in the center
-    // Draw QR code icon in the center
-    const icon = Icons.qr_code;
+    // Draw barcode icon in the center
+    const icon = Icons.format_align_justify_outlined;
     final textStyle = TextStyle(
       fontSize: 40,
       fontFamily: icon.fontFamily,
@@ -37,7 +36,25 @@ class QrCodeReaderBorderPainter extends CustomPainter {
       (size.height - textPainter.height) / 2,
     );
 
-    textPainter.paint(canvas, offset);
+    // Save the current canvas state
+    canvas.save();
+
+    // Translate to the center of the icon
+    canvas.translate(offset.dx + textPainter.width / 2, offset.dy + textPainter.height / 2);
+
+    // Rotate the canvas by 90 degrees (π/2 radians)
+    canvas.rotate(90 * 3.1415927 / 180);
+
+    // Translate back to the original position
+    canvas.translate(-textPainter.width / 2, -textPainter.height / 2);
+
+    // Draw the icon
+    textPainter.paint(canvas, Offset.zero);
+
+    // Restore the canvas to its original state
+    canvas.restore();
+
+    // textPainter.paint(canvas, offset);
 
     // Top-left corner
     canvas.drawLine(const Offset(0, 0), const Offset(cornerLength, 0), paint);

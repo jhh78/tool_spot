@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/system.dart';
+import 'package:life_secretary/screen/barcode_reader.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/menu_card.dart';
@@ -26,11 +27,12 @@ class _MainScreenState extends State<MainScreen> {
       text: 'QrReader'.tr,
     ),
     MenuCard(
-      icon: Icons.shopping_cart,
+      icon: Icons.format_align_justify_outlined,
+      isRotate: true,
       callback: () {
-        // Add your callback here
+        Get.to(() => const BarcodeReaderScreen());
       },
-      text: 'Shopping'.tr,
+      text: 'barcode'.tr,
     ),
     MenuCard(
       icon: Icons.restaurant,

@@ -7,11 +7,31 @@ class MenuCard extends StatelessWidget {
     required this.icon,
     required this.callback,
     required this.text,
+    this.isRotate = false,
   });
 
   final IconData icon;
   final Function callback;
   final String text;
+  final bool isRotate;
+
+  Widget renderIcon(BuildContext context) {
+    if (isRotate) {
+      return Transform.rotate(
+        angle: 90 * 3.1415927 / 180, // 90도 회전 (라디안 단위)
+        child: Icon(
+          icon,
+          size: getIconSize(context),
+          color: Colors.blue[900],
+        ),
+      );
+    }
+    return Icon(
+      icon,
+      size: getIconSize(context),
+      color: Colors.blue[900],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +53,7 @@ class MenuCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                size: getIconSize(context),
-                color: Colors.blue[900],
-              ),
+              renderIcon(context),
               SizedBox(
                 child: Text(
                   text,
