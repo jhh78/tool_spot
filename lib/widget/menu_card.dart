@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_secretary/util/util.dart';
 
 class MenuCard extends StatelessWidget {
   const MenuCard({
@@ -34,14 +35,14 @@ class MenuCard extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                size: MediaQuery.of(context).size.width / 6,
+                size: getIconSize(context),
                 color: Colors.blue[900],
               ),
               SizedBox(
                 child: Text(
                   text,
                   style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width / 30,
+                    fontSize: getTextSize(context),
                     color: Colors.blue[900],
                   ),
                 ),

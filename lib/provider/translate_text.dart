@@ -21,6 +21,7 @@ class TranslateText extends Translations {
           'qrReaderTitle': 'QR 리더',
           'qrReaderDescription': 'QR 코드를 스캔하여 정보를 확인하세요.',
           'qrModalTitle': 'QR코드를 감지하였습니다',
+          'qrModalDescriptionFail': 'QR코드를 감지하지 못하였습니다',
           'qrModalDescription': '사이트를 이동하시기전에 주소를 확인해주세요',
         },
         'ja_JP': {
@@ -41,6 +42,7 @@ class TranslateText extends Translations {
           'qrReaderTitle': 'QRリーダー',
           'qrReaderDescription': 'QRコードをスキャンして情報を確認してください。',
           'qrModalTitle': 'QRコードを検出しました',
+          'qrModalDescriptionFail': 'QRコードを検出できませんでした',
           'qrModalDescription': 'アクセスする前にアドレスを確認してください',
         },
         'en_US': {
@@ -61,6 +63,7 @@ class TranslateText extends Translations {
           'qrReaderTitle': 'QR Reader',
           'qrReaderDescription': 'Scan the QR code to check the information.',
           'qrModalTitle': 'Barcode Detected',
+          'qrModalDescriptionFail': 'Failed to detect QR code',
           'qrModalDescription': 'Please check the address before accessing the site.',
         },
       };

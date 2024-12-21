@@ -1,3 +1,8 @@
-String AUTH_TYPE_EMAIL = 'email';
-String AUTH_TYPE_GOOGLE = 'google';
-String AUTH_TYPE_APPLE = 'apple';
+enum DeviceTypes {
+  w400,
+  w600,
+  w800,
+  w1000,
+  w1200,
+  w1400,
+}

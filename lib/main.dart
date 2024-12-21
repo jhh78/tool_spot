@@ -8,14 +8,12 @@ import 'package:life_secretary/provider/translate_text.dart';
 import 'package:life_secretary/screen/main_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 // TODO ::: 바코드 스캐너 추가
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  WakelockPlus.enable();
 
   if (kDebugMode) {
     await Upgrader.clearSavedSettings();
