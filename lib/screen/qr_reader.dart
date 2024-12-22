@@ -7,7 +7,6 @@ import 'package:life_secretary/widget/button/zoom.dart';
 import 'package:life_secretary/widget/clip/rectangle.dart';
 import 'package:life_secretary/widget/paint/qr_code_reader_border.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QrReaderScreen extends StatefulWidget {
   const QrReaderScreen({super.key});

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/system.dart';
-import 'package:life_secretary/screen/barcode_reader.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/menu_card.dart';
@@ -27,48 +26,46 @@ class _MainScreenState extends State<MainScreen> {
       text: 'QrReader'.tr,
     ),
     MenuCard(
-      icon: Icons.format_align_justify_outlined,
+      icon: Icons.format_list_numbered,
       isRotate: true,
-      callback: () {
-        Get.to(() => const BarcodeReaderScreen());
-      },
+      callback: () {},
       text: 'barcode'.tr,
     ),
-    MenuCard(
-      icon: Icons.restaurant,
-      callback: () {
-        // Add your callback here
-      },
-      text: 'Restaurant'.tr,
-    ),
-    MenuCard(
-      icon: Icons.directions_car,
-      callback: () {
-        // Add your callback here
-      },
-      text: 'Car'.tr,
-    ),
-    MenuCard(
-      icon: Icons.local_hospital,
-      callback: () {
-        // Add your callback here
-      },
-      text: 'Hospital'.tr,
-    ),
-    MenuCard(
-      icon: Icons.school,
-      callback: () {
-        // Add your callback here
-      },
-      text: 'School'.tr,
-    ),
-    MenuCard(
-      icon: Icons.work,
-      callback: () {
-        // Add your callback here
-      },
-      text: 'Work'.tr,
-    ),
+    // MenuCard(
+    //   icon: Icons.restaurant,
+    //   callback: () {
+    //     // Add your callback here
+    //   },
+    //   text: 'Restaurant'.tr,
+    // ),
+    // MenuCard(
+    //   icon: Icons.directions_car,
+    //   callback: () {
+    //     // Add your callback here
+    //   },
+    //   text: 'Car'.tr,
+    // ),
+    // MenuCard(
+    //   icon: Icons.local_hospital,
+    //   callback: () {
+    //     // Add your callback here
+    //   },
+    //   text: 'Hospital'.tr,
+    // ),
+    // MenuCard(
+    //   icon: Icons.school,
+    //   callback: () {
+    //     // Add your callback here
+    //   },
+    //   text: 'School'.tr,
+    // ),
+    // MenuCard(
+    //   icon: Icons.work,
+    //   callback: () {
+    //     // Add your callback here
+    //   },
+    //   text: 'Work'.tr,
+    // ),
   ];
 
   @override
