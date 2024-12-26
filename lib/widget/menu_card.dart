@@ -6,13 +6,11 @@ class MenuCard extends StatelessWidget {
     super.key,
     required this.icon,
     required this.callback,
-    required this.text,
     this.isRotate = false,
   });
 
   final IconData icon;
   final Function callback;
-  final String text;
   final bool isRotate;
 
   Widget renderIcon(BuildContext context) {
@@ -46,26 +44,7 @@ class MenuCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              renderIcon(context),
-              SizedBox(
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: getTextSize(context),
-                    color: Colors.blue[900],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: renderIcon(context),
       ),
     );
   }

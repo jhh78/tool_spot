@@ -10,9 +10,6 @@ class TranslateText extends Translations {
           'language_en': '영어',
           'language_ja': '일본어',
 
-          // Menu Text
-          'QrReader': 'QR 리더',
-
           // Button Text
           'close': '닫기',
           'accessSite': '사이트 접속',
@@ -23,8 +20,11 @@ class TranslateText extends Translations {
           'qrModalTitle': 'QR코드를 감지하였습니다',
           'qrModalDescription': '사이트를 이동하시기전에 주소를 확인해주세요',
 
-          // barcode Reader Screen
-          'barcodeReaderTitle': '바코드스캔',
+          // Todo Screen
+          'todoTitle': '할일',
+
+          // Address Translate Screen
+          'AddressTranslate': '주소 번역',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -35,6 +35,7 @@ class TranslateText extends Translations {
 
           // Menu Text
           'QrReader': 'QRリーダー',
+          'Todo': 'やること',
 
           // Button Text
           'close': '閉じる',
@@ -43,12 +44,14 @@ class TranslateText extends Translations {
 
           // QR Reader Screen
           'qrReaderTitle': 'QRリーダー',
-          'qrReaderDescription': 'QRコードをスキャンして情報を確認してください。',
           'qrModalTitle': 'QRコードを検出しました',
           'qrModalDescription': 'アクセスする前にアドレスを確認してください',
 
-          // barcode Reader Screen
-          'barcodeReaderTitle': 'バーコードスキャン',
+          // Todo Screen
+          'todoTitle': 'やること',
+
+          // Address Translate Screen
+          'AddressTranslate': 'アドレス翻訳',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -59,6 +62,7 @@ class TranslateText extends Translations {
 
           // Menu Text
           'QrReader': 'QR Reader',
+          'Todo': 'Todo',
 
           // Button Text
           'close': 'Close',
@@ -67,12 +71,14 @@ class TranslateText extends Translations {
 
           // QR Reader Screen
           'qrReaderTitle': 'QR Reader',
-          'qrReaderDescription': 'Scan the QR code to check the information.',
           'qrModalTitle': 'Barcode Detected',
           'qrModalDescription': 'Please check the address before accessing the site.',
 
-          // barcode Reader Screen
-          'barcodeReaderTitle': 'Barcode Scan',
+          // Todo Screen
+          'todoTitle': 'Todo',
+
+          // Address Translate Screen
+          'AddressTranslate': 'Address Translate',
         },
       };
 }

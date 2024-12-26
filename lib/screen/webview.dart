@@ -31,7 +31,6 @@ class _WebViewScreenState extends State<WebViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('barcodeReaderShowInfo'.tr),
         leading: IconButton(
           icon: const Icon(Icons.home_outlined),
           onPressed: () {
@@ -39,7 +38,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
           },
         ),
       ),
-      body: WebViewWidget(controller: controller),
+      body: PopScope(
+        canPop: false,
+        child: WebViewWidget(controller: controller),
+      ),
     );
   }
 }

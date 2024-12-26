@@ -6,16 +6,16 @@ import 'package:life_secretary/util/constants.dart';
 // 아이콘 크기를 반환하는 함수
 double getIconSize(BuildContext context) {
   if (checkDeviceType(context) == DeviceTypes.w600) {
-    return MediaQuery.of(context).size.width / 8;
+    return MediaQuery.of(context).size.width / 7;
   } else if (checkDeviceType(context) == DeviceTypes.w800) {
-    return MediaQuery.of(context).size.width / 10;
+    return MediaQuery.of(context).size.width / 9;
   } else if (checkDeviceType(context) == DeviceTypes.w1000) {
-    return MediaQuery.of(context).size.width / 11;
+    return MediaQuery.of(context).size.width / 10;
   } else if (checkDeviceType(context) == DeviceTypes.w1200) {
-    return MediaQuery.of(context).size.width / 13;
+    return MediaQuery.of(context).size.width / 12;
   }
 
-  return MediaQuery.of(context).size.width / 7;
+  return MediaQuery.of(context).size.width / 5;
 }
 
 // 텍스트 크기를 반환하는 함수
