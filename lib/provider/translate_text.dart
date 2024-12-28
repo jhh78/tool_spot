@@ -10,6 +10,9 @@ class TranslateText extends Translations {
           'language_en': '영어',
           'language_ja': '일본어',
 
+          // setting menu
+          'pointAdd': '포인트 추가',
+
           // Button Text
           'close': '닫기',
           'accessSite': '사이트 접속',
@@ -24,7 +27,7 @@ class TranslateText extends Translations {
           'todoTitle': '할일',
 
           // Address Translate Screen
-          'AddressTranslate': '주소 번역',
+          'addressTranslate': '주소변환',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -32,6 +35,9 @@ class TranslateText extends Translations {
           'language_ko': '韓国語',
           'language_en': '英語',
           'language_ja': '日本語',
+
+          // setting menu
+          'pointAdd': 'ポイント追加',
 
           // Menu Text
           'QrReader': 'QRリーダー',
@@ -51,7 +57,7 @@ class TranslateText extends Translations {
           'todoTitle': 'やること',
 
           // Address Translate Screen
-          'AddressTranslate': 'アドレス翻訳',
+          'addressTranslate': 'アドレス変換',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -59,6 +65,9 @@ class TranslateText extends Translations {
           'language_ko': 'Korean',
           'language_en': 'English',
           'language_ja': 'Japanese',
+
+          // setting menu
+          'pointAdd': 'Add Point',
 
           // Menu Text
           'QrReader': 'QR Reader',
@@ -78,7 +87,7 @@ class TranslateText extends Translations {
           'todoTitle': 'Todo',
 
           // Address Translate Screen
-          'AddressTranslate': 'Address Translate',
+          'addressTranslate': 'Address Translate',
         },
       };
 }

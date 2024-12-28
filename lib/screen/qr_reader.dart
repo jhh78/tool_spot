@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/screen/webview.dart';
 import 'package:life_secretary/widget/button/flash.dart';
 import 'package:life_secretary/widget/button/zoom.dart';
@@ -19,6 +20,8 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
   MobileScannerController controller = MobileScannerController(
     formats: [BarcodeFormat.qrCode],
   );
+
+  final RouterProvider routerProvider = Get.put(RouterProvider());
   bool isDetecting = false;
   bool isWebAddress = false;
   final double scanAreaWidth = 250;
@@ -27,12 +30,6 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ],
-    );
   }
 
   @override
@@ -105,13 +102,6 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('qrReaderTitle'.tr),
-        actions: [
-          FlashButtonWidget(controller: controller),
-          ZoomButtonWidget(controller: controller),
-        ],
-      ),
       backgroundColor: Colors.black,
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -146,6 +136,16 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
                     child: CustomPaint(
                       size: Size(scanAreaWidth, scanAreaHeight),
                       painter: QrCodeReaderBorder(),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FlashButtonWidget(controller: controller),
+                        ZoomButtonWidget(controller: controller),
+                      ],
                     ),
                   ),
                 ],

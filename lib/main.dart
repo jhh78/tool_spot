@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/translate_text.dart';
@@ -19,8 +18,6 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
-  await MobileAds.instance.initialize();
 
   if (kDebugMode) {
     await Upgrader.clearSavedSettings();

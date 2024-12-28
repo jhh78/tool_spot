@@ -100,7 +100,7 @@ class _TodoScreenState extends State<TodoScreen> {
         Positioned.fill(
             child: Container(
           color: Colors.grey.withAlpha(50),
-          child: Center(
+          child: const Center(
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
               strokeCap: StrokeCap.round,

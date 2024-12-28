@@ -5,11 +5,23 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:life_secretary/provider/system.dart';
 
 const String location = "lib/services/ad_manager.dart";
 
 class ADManager extends GetxService {
   RxBool isAdReady = false.obs;
+  Rx<BannerAd?> bannerAd = Rx<BannerAd?>(null);
+  SystemProvider systemProvider = Get.put(SystemProvider());
+
+  @override
+  void onInit() {
+    super.onInit();
+    MobileAds.instance.initialize().then((InitializationStatus status) {
+      log('$location: MobileAds initialized');
+      loadBannerAd();
+    });
+  }
 
   String getRewardADUnit() {
     if (Platform.isAndroid) {
@@ -51,6 +63,10 @@ class ADManager extends GetxService {
                   log('Ad impression: $ad');
                   ad.dispose();
                   isAdReady.value = false;
+                  systemProvider.setPoint(30);
+                },
+                onAdClicked: (ad) {
+                  log('Ad clicked: $ad');
                 },
                 onAdFailedToShowFullScreenContent: (ad, err) async {
                   ad.dispose();
@@ -60,15 +76,14 @@ class ADManager extends GetxService {
                   ad.dispose();
                   completer.completeError(Exception('Ad dismissed fullscreen content: $ad'));
                 },
-                onAdClicked: (ad) {
-                  log('Ad clicked: $ad');
-                },
               );
             },
             onAdFailedToLoad: (error) {
               completer.completeError(Exception('Ad failed to load: $error'));
             },
-          ));
+          )).then((value) {
+        completer.complete();
+      });
 
       await completer.future;
     } catch (e) {
@@ -76,5 +91,30 @@ class ADManager extends GetxService {
       log(e.toString());
       rethrow;
     }
+  }
+
+  void loadBannerAd() {
+    if (kDebugMode) {
+      return;
+    }
+
+    bannerAd.value = BannerAd(
+      adUnitId: getBannerADUnit(),
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          log('$location: Ad loaded: $ad');
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          log('$location: Ad failed to load: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => log('$location: Ad opened: $ad'),
+        onAdClosed: (Ad ad) => log('$location: Ad closed: $ad'),
+        onAdImpression: (Ad ad) => log('$location: Ad impression: $ad'),
+        onAdClicked: (Ad ad) => log('$location: Ad clicked: $ad'),
+      ),
+    )..load();
   }
 }

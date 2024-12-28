@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class FlashButtonWidget extends StatefulWidget {
@@ -12,7 +11,6 @@ class FlashButtonWidget extends StatefulWidget {
 
 class _FlashButtonWidgetState extends State<FlashButtonWidget> {
   bool isTorchOn = false;
-  final Color iconColor = Get.isDarkMode ? Colors.white : Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +25,12 @@ class _FlashButtonWidgetState extends State<FlashButtonWidget> {
           ? Icon(
               Icons.flash_on,
               size: Theme.of(context).textTheme.headlineLarge?.fontSize,
-              color: iconColor,
+              color: Colors.white,
             )
           : Icon(
               Icons.flash_off,
               size: Theme.of(context).textTheme.headlineLarge?.fontSize,
-              color: iconColor,
+              color: Colors.white,
             ),
     );
   }
