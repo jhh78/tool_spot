@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/screen/todo.dart';
@@ -21,8 +21,8 @@ class _MainScreenState extends State<MainScreen> {
   final SystemProvider systemProvider = Get.find<SystemProvider>();
   bool isReady = false;
 
-  // ADManager adManager = ADManager();
-  // BannerAd? _bannerAd;
+  ADManager adManager = ADManager();
+  BannerAd? _bannerAd;
 
   final List<MenuCard> menuCards = [
     MenuCard(
@@ -87,22 +87,22 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
 
     // TODO: Load a banner ad
-    // BannerAd(
-    //   adUnitId: adManager.getBannerADUnit(),
-    //   request: AdRequest(),
-    //   size: AdSize.banner,
-    //   listener: BannerAdListener(
-    //     onAdLoaded: (ad) {
-    //       setState(() {
-    //         _bannerAd = ad as BannerAd;
-    //       });
-    //     },
-    //     onAdFailedToLoad: (ad, err) {
-    //       print('Failed to load a banner ad: ${err.message}');
-    //       ad.dispose();
-    //     },
-    //   ),
-    // ).load();
+    BannerAd(
+      adUnitId: adManager.getBannerADUnit(),
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   @override
@@ -128,18 +128,18 @@ class _MainScreenState extends State<MainScreen> {
           },
         ),
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   child: Align(
-      //     alignment: Alignment.center,
-      //     child: _bannerAd == null
-      //         ? SizedBox.shrink()
-      //         : Container(
-      //             width: _bannerAd!.size.width.toDouble(),
-      //             height: _bannerAd!.size.height.toDouble(),
-      //             child: AdWidget(ad: _bannerAd!),
-      //           ),
-      //   ),
-      // ),
+      bottomNavigationBar: BottomAppBar(
+        child: Align(
+          alignment: Alignment.center,
+          child: _bannerAd == null
+              ? SizedBox.shrink()
+              : Container(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+        ),
+      ),
     );
   }
 }
