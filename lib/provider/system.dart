@@ -47,8 +47,15 @@ class SystemProvider extends GetxService {
     screenIndex.value = index;
   }
 
-  void setPoint(int point) async {
+  void incrementPoint(int point) async {
     this.point.value += point;
+
+    final Box pointBox = await Hive.openBox(POINT);
+    pointBox.put(POINT, this.point.value);
+  }
+
+  void decrementPoint(int point) async {
+    this.point.value -= point;
 
     final Box pointBox = await Hive.openBox(POINT);
     pointBox.put(POINT, this.point.value);
