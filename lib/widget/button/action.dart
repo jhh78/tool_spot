@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ActionButtonWidget extends StatelessWidget {
   const ActionButtonWidget({
@@ -31,7 +30,7 @@ class ActionButtonWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey),
+            border: Border.all(color: Get.isDarkMode ? Colors.white70 : Colors.black54),
           ),
           child: TextButton(
             onPressed: onPressed,

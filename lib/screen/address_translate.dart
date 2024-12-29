@@ -52,48 +52,17 @@ class _AddressTranslateState extends State<AddressTranslate> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                onPressed: () {},
-                label: Obx(() => Text(
-                      systemProvider.point.value.toString(),
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    )),
-                icon: const Icon(
-                  Icons.payments_outlined,
-                  size: ICON_SIZE,
-                  color: Colors.black87,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Get.defaultDialog(
-                    title: 'menuTitle'.tr,
-                    content: Column(
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            routerProvider.moveQRReader();
-                            Get.back();
-                          },
-                          child: Text('qrReaderTitle'.tr),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            routerProvider.moveAddressTranslate();
-                            Get.back();
-                          },
-                          child: Text('addressTranslate'.tr),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.list_alt, size: ICON_SIZE),
-              )
-            ],
+          TextButton.icon(
+            onPressed: () {},
+            label: Obx(() => Text(
+                  systemProvider.point.value.toString(),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                )),
+            icon: Icon(
+              Icons.payments_outlined,
+              size: ICON_SIZE,
+              color: Get.isDarkMode ? Colors.white70 : Colors.black87,
+            ),
           ),
           Expanded(
             child: Align(

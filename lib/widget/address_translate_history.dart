@@ -35,6 +35,12 @@ class _AddressTranslateHistoryWidgetState extends State<AddressTranslateHistoryW
                 children: [
                   IconButton(
                     onPressed: () {
+                      log('Remove $index');
+                    },
+                    icon: const Icon(Icons.remove_circle_outline),
+                  ),
+                  IconButton(
+                    onPressed: () {
                       log('Copy $index');
                       Clipboard.setData(
                         ClipboardData(text: 'Translated Address $index'),
@@ -47,12 +53,6 @@ class _AddressTranslateHistoryWidgetState extends State<AddressTranslateHistoryW
                       );
                     },
                     icon: const Icon(Icons.copy),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      log('Remove $index');
-                    },
-                    icon: const Icon(Icons.remove_circle_outline),
                   ),
                 ],
               ),
