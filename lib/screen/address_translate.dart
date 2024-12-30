@@ -75,22 +75,22 @@ class _AddressTranslateState extends State<AddressTranslate> {
   }
 
   void handleTryTranslate(BuildContext context) {
-    // if (systemProvider.point.value < ADDRESS_TRANSLATE_DECREMENT_POINT) {
-    //   Get.defaultDialog(
-    //     radius: 5,
-    //     title: 'lackPoints'.tr,
-    //     titleStyle: Theme.of(context).textTheme.titleMedium,
-    //     content: ActionButtonWidget(
-    //       onPressed: () async {
-    //         Get.back();
-    //         adManager.loadRewardAd();
-    //       },
-    //       middleText: 'showAdDescription'.tr,
-    //       buttonText: 'showAd'.tr,
-    //     ),
-    //   );
-    //   return;
-    // }
+    if (systemProvider.point.value < ADDRESS_TRANSLATE_DECREMENT_POINT) {
+      Get.defaultDialog(
+        radius: 5,
+        title: 'lackPoints'.tr,
+        titleStyle: Theme.of(context).textTheme.titleMedium,
+        content: ActionButtonWidget(
+          onPressed: () async {
+            Get.back();
+            adManager.loadRewardAd();
+          },
+          middleText: 'showAdDescription'.tr,
+          buttonText: 'showAd'.tr,
+        ),
+      );
+      return;
+    }
 
     _sendToOpenAI(context);
   }
