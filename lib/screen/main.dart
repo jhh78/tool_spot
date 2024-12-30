@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -19,6 +21,25 @@ class _MainScreenState extends State<MainScreen> {
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final ADManager adManager = Get.put(ADManager());
   bool isReady = false;
+
+  @override
+  void initState() {
+    super.initState();
+    routerProvider.homeFocusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    routerProvider.homeFocusNode.removeListener(_onFocusChange);
+    routerProvider.homeFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (routerProvider.homeFocusNode.hasFocus) {
+      log('>>>>>>>>>>>>>>>>>>>> MainScreen screen has focus');
+    }
+  }
 
   Widget _renderAppBarTitle() {
     switch (routerProvider.screenIndex.value) {

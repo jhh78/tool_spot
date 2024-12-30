@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/db/address_converter.dart';
 import 'package:life_secretary/model/address_converter.dart';
@@ -22,7 +23,10 @@ class AddressTranslate extends StatefulWidget {
 
 class _AddressTranslateState extends State<AddressTranslate> {
   final SystemProvider systemProvider = Get.put(SystemProvider());
-  final OpenAIProvider openAIProvider = Get.put(OpenAIProvider());
+  final OpenAiAndAssistantsProvider openAIProvider = OpenAiAndAssistantsProvider(
+    apiKey: dotenv.env['OPENAI_ADDRESS_TRANSLATE_API_KEY'].toString(),
+    assistantId: dotenv.env['OPENAI_ADDRESS_TRANSLATE_ASSISTANT_ID'].toString(),
+  );
   final ADManager adManager = Get.put(ADManager());
   final TextEditingController _addressController = TextEditingController();
   final RouterProvider routerProvider = Get.put(RouterProvider());
@@ -50,7 +54,7 @@ class _AddressTranslateState extends State<AddressTranslate> {
 
   void _onFocusChange() {
     if (routerProvider.addressTranslateFocusNode.hasFocus) {
-      log('AddressTranslate screen has focus');
+      log('>>>>>>>>>>>>>>>>>>>> AddressTranslate screen has focus');
       loadAddressConverter();
     }
   }
@@ -104,7 +108,7 @@ class _AddressTranslateState extends State<AddressTranslate> {
         isTranslating = true;
       });
 
-      final response = await openAIProvider.translate(_addressController.text);
+      final response = await openAIProvider.executeQuery(_addressController.text);
       systemProvider.decrementPoint(ADDRESS_TRANSLATE_DECREMENT_POINT);
 
       setState(() {

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/router.dart';
@@ -29,12 +31,22 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
   @override
   void initState() {
     super.initState();
+    routerProvider.qrReaderFocusNode.addListener(_onFocusChange);
   }
 
   @override
   Future<void> dispose() async {
-    super.dispose();
+    routerProvider.qrReaderFocusNode.removeListener(_onFocusChange);
+    routerProvider.qrReaderFocusNode.dispose();
+
     await controller.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (routerProvider.qrReaderFocusNode.hasFocus) {
+      log('>>>>>>>>>>>>>>>>>>>> QrReader screen has focus');
+    }
   }
 
   void _handleBarcode(BarcodeCapture barcodes) {
