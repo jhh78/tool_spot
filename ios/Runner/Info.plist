@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDisplayName</key>
+	<string>$(CFBundleDisplayName)</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string> <!-- 영어 -->
+		<string>ko</string> <!-- 한국어 -->
+		<string>ja</string> <!-- 일본어 -->
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-9674517651101637~3331562347</string>
 	<key>NSCameraUsageDescription</key>
@@ -11,9 +19,7 @@
 	<key>GMSApiKey</key>
 	<string>AIzaSyAg6a3Rk2VGDzZyFhkjYv1fm6aocVb8B3w</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Life Secretary</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
