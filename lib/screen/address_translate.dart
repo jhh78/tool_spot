@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:life_secretary/db/address_converter.dart';
 import 'package:life_secretary/model/address_converter.dart';
 import 'package:life_secretary/provider/router.dart';

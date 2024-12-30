@@ -24,48 +24,6 @@ class MenuScreen extends StatelessWidget {
         icon: Icons.translate,
         callback: () => routerProvider.moveAddressTranslate(context),
       ),
-      // MenuCard(
-      //   icon: Icons.format_list_numbered,
-      //   callback: () {
-      //     Get.to(() => const TodoScreen());
-      //   },
-      //   text: 'Todo'.tr,
-      // ),
-      // MenuCard(
-      //   icon: Icons.restaurant,
-      //   callback: () {
-      //     // Add your callback here
-      //   },
-      //   text: 'Restaurant'.tr,
-      // ),
-      // MenuCard(
-      //   icon: Icons.directions_car,
-      //   callback: () {
-      //     // Add your callback here
-      //   },
-      //   text: 'Car'.tr,
-      // ),
-      // MenuCard(
-      //   icon: Icons.local_hospital,
-      //   callback: () {
-      //     // Add your callback here
-      //   },
-      //   text: 'Hospital'.tr,
-      // ),
-      // MenuCard(
-      //   icon: Icons.school,
-      //   callback: () {
-      //     // Add your callback here
-      //   },
-      //   text: 'School'.tr,
-      // ),
-      // MenuCard(
-      //   icon: Icons.work,
-      //   callback: () {
-      //     // Add your callback here
-      //   },
-      //   text: 'Work'.tr,
-      // ),
     ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
