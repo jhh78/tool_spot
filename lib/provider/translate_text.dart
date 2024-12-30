@@ -12,6 +12,8 @@ class TranslateText extends Translations {
           'lackPoints': '포인트가 부족합니다',
           'showAdDescription': '광고를 시청하면 포인트를 얻을 수 있습니다\n광고를 시청하시겠습니까?',
           'showAd': '광고보기',
+          'error': '오류가 발생하였습니다',
+          'translateError': '번역에 실패하였습니다\n다시 시도해주세요',
 
           // setting menu
           'pointAdd': '포인트 추가',
@@ -42,6 +44,8 @@ class TranslateText extends Translations {
           'lackPoints': 'ポイントが足りないです。',
           'showAdDescription': '広告を見るとポイントを獲得できます。\n広告を見ますか？',
           'showAd': '広告を見る',
+          'error': 'エラーが発生しました',
+          'translateError': '翻訳に失敗しました。\n再度お試しください',
 
           // setting menu
           'pointAdd': 'ポイント追加',
@@ -76,6 +80,8 @@ class TranslateText extends Translations {
           'lackPoints': 'Lack of points',
           'showAdDescription': 'You can earn points by watching ads.\nWould you like to watch an ad?',
           'showAd': 'Watch Ad',
+          'error': 'An error occurred',
+          'translateError': 'Translation failed\nPlease try again',
 
           // setting menu
           'pointAdd': 'Add Point',

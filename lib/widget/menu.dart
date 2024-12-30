@@ -18,11 +18,11 @@ class MenuScreen extends StatelessWidget {
     final List<MenuCard> menuCards = [
       MenuCard(
         icon: Icons.qr_code_rounded,
-        callback: () => routerProvider.moveQRReader(),
+        callback: () => routerProvider.moveQRReader(context),
       ),
       MenuCard(
         icon: Icons.translate,
-        callback: () => routerProvider.moveAddressTranslate(),
+        callback: () => routerProvider.moveAddressTranslate(context),
       ),
       // MenuCard(
       //   icon: Icons.format_list_numbered,

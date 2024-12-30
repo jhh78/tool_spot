@@ -33,11 +33,11 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Widget? _renderLeadingWidget() {
+  Widget? _renderLeadingWidget(BuildContext context) {
     if (routerProvider.screenIndex.value != 0) {
       return IconButton(
         onPressed: () {
-          routerProvider.moveHome();
+          routerProvider.moveHome(context);
         },
         icon: const Icon(Icons.home),
       );
@@ -54,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
           () => _renderAppBarTitle(),
         ),
         leading: Obx(
-          () => _renderLeadingWidget() ?? const SizedBox.shrink(),
+          () => _renderLeadingWidget(context) ?? const SizedBox.shrink(),
         ),
         centerTitle: true,
         actions: [

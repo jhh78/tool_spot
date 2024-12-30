@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:life_secretary/db/helper.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/translate_text.dart';
 import 'package:life_secretary/screen/main.dart';
@@ -22,6 +23,8 @@ void main() async {
   if (kDebugMode) {
     await Upgrader.clearSavedSettings();
   }
+
+  await DatabaseHelper().initDatabase();
 
   final appDocumentDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
