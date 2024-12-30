@@ -7,6 +7,7 @@ import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/screen/address_translate.dart';
+import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/widget/menu.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
 
@@ -60,7 +61,10 @@ class _MainScreenState extends State<MainScreen> {
         onPressed: () {
           routerProvider.moveHome(context);
         },
-        icon: const Icon(Icons.home),
+        icon: const Icon(
+          Icons.home_outlined,
+          size: ICON_SIZE,
+        ),
       );
     }
 
