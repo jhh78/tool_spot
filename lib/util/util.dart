@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:life_secretary/util/constants.dart';
 
 // 아이콘 크기를 반환하는 함수
@@ -67,3 +68,6 @@ DEVICE_TYPES checkDeviceType(BuildContext context) {
 
   return DEVICE_TYPES.w400;
 }
+
+// 로케일 숫자 포맷을 변환하는 함수
+String convertLocaleNumberFormat(int value) => NumberFormat('#,###').format(value);

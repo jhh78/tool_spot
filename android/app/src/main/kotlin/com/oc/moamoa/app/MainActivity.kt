@@ -1,4 +1,4 @@
-package com.oc.ls.app
+package com.oc.moamoa.app
 
 import io.flutter.embedding.android.FlutterActivity
 

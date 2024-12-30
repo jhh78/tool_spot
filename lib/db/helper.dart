@@ -11,7 +11,7 @@ class DatabaseHelper {
   }
 
   Future<Database> initDatabase() async {
-    String path = join(await getDatabasesPath(), 'com.oc.ls.db');
+    String path = join(await getDatabasesPath(), 'com.oc.moamoa.app');
     return await openDatabase(
       path,
       version: 1,

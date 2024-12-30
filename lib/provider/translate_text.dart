@@ -9,11 +9,15 @@ class TranslateText extends Translations {
           'language_ko': '한국어',
           'language_en': '영어',
           'language_ja': '일본어',
-          'lackPoints': '포인트가 부족합니다',
           'showAdDescription': '광고를 시청하면 포인트를 얻을 수 있습니다\n광고를 시청하시겠습니까?',
           'showAd': '광고보기',
+          'copiedText': '복사되었습니다',
+
+          // errors
           'error': '오류가 발생하였습니다',
-          'translateError': '번역에 실패하였습니다\n다시 시도해주세요',
+          'lackPoints': '포인트가 부족합니다',
+          'requiredData': '테이터를 입력해주세요',
+          'translateError': '번역에 실패하였습니다\n올바른 주소를 입력해주세요',
 
           // setting menu
           'pointAdd': '포인트 추가',
@@ -33,7 +37,8 @@ class TranslateText extends Translations {
 
           // Address Translate Screen
           'addressTranslate': '주소변환',
-          'translateButton': '변환하기\n20포인트 소모',
+          'addressTextFieldHinttext': '변환할 주소를 입력해주세요',
+          'translateButton': '변환하기(-20pt)',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -41,11 +46,15 @@ class TranslateText extends Translations {
           'language_ko': '韓国語',
           'language_en': '英語',
           'language_ja': '日本語',
-          'lackPoints': 'ポイントが足りないです。',
           'showAdDescription': '広告を見るとポイントを獲得できます。\n広告を見ますか？',
           'showAd': '広告を見る',
+          'copiedText': 'コピーされました',
+
+          // errors
           'error': 'エラーが発生しました',
-          'translateError': '翻訳に失敗しました。\n再度お試しください',
+          'lackPoints': 'ポイントが足りないです',
+          'requiredData': 'データを入力してください',
+          'translateError': '翻訳に失敗しました\n正しいアドレスを入力してください',
 
           // setting menu
           'pointAdd': 'ポイント追加',
@@ -69,7 +78,8 @@ class TranslateText extends Translations {
 
           // Address Translate Screen
           'addressTranslate': 'アドレス変換',
-          'translateButton': '変換する\n20ポイント消費',
+          'addressTextFieldHinttext': '変換するアドレスを入力してください',
+          'translateButton': '変換する（-20pt）',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -77,11 +87,15 @@ class TranslateText extends Translations {
           'language_ko': 'Korean',
           'language_en': 'English',
           'language_ja': 'Japanese',
-          'lackPoints': 'Lack of points',
           'showAdDescription': 'You can earn points by watching ads.\nWould you like to watch an ad?',
           'showAd': 'Watch Ad',
+          'copiedText': 'Copied',
+
+          // errors
           'error': 'An error occurred',
-          'translateError': 'Translation failed\nPlease try again',
+          'lackPoints': 'Lack of points',
+          'requiredData': 'Please enter the data',
+          'translateError': 'Translation failed\nPlease enter a valid address',
 
           // setting menu
           'pointAdd': 'Add Point',
@@ -105,7 +119,8 @@ class TranslateText extends Translations {
 
           // Address Translate Screen
           'addressTranslate': 'Address Translate',
-          'translateButton': 'Translate\nUse 20 points',
+          'addressTextFieldHinttext': 'Enter the address to convert',
+          'translateButton': 'Translate(-20pt)',
         },
       };
 }

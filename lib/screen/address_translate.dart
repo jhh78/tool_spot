@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:life_secretary/db/address_converter.dart';
 import 'package:life_secretary/model/address_converter.dart';
 import 'package:life_secretary/provider/router.dart';
@@ -11,6 +12,7 @@ import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/provider/vender/open_ai.dart';
 import 'package:life_secretary/util/constants.dart';
+import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/address_translate_history.dart';
 import 'package:life_secretary/widget/button/action.dart';
 
@@ -36,7 +38,6 @@ class _AddressTranslateState extends State<AddressTranslate> {
   bool isTranslating = false;
   bool isFocused = false;
   String translatedAddress = '';
-  String originalAddress = '';
 
   @override
   void initState() {
@@ -73,8 +74,7 @@ class _AddressTranslateState extends State<AddressTranslate> {
     loadAddressConverter();
   }
 
-  void handleTryTranslate() {
-    log('Translate');
+  void handleTryTranslate(BuildContext context) {
     // if (systemProvider.point.value < ADDRESS_TRANSLATE_DECREMENT_POINT) {
     //   Get.defaultDialog(
     //     radius: 5,
@@ -92,19 +92,20 @@ class _AddressTranslateState extends State<AddressTranslate> {
     //   return;
     // }
 
-    _sendToOpenAI();
+    _sendToOpenAI(context);
   }
 
 // asst_O9fBVFkYMvsuBKZcLJrqT7w8
-  Future<void> _sendToOpenAI() async {
+  Future<void> _sendToOpenAI(BuildContext context) async {
     try {
       if (_addressController.text.isEmpty) {
-        throw Exception('addressEmpty'.tr);
+        throw Exception('requiredData'.tr);
       }
 
       FocusScope.of(context).unfocus();
 
       setState(() {
+        translatedAddress = '';
         isTranslating = true;
       });
 
@@ -113,14 +114,14 @@ class _AddressTranslateState extends State<AddressTranslate> {
 
       setState(() {
         isTranslating = false;
-        originalAddress = _addressController.text;
         translatedAddress = response;
       });
-
-      log(response);
     } catch (e) {
       Get.defaultDialog(
         title: 'error'.tr,
+        titleStyle: const TextStyle(
+          fontSize: 20,
+        ),
         content: Text(e.toString()),
       );
     }
@@ -133,16 +134,22 @@ class _AddressTranslateState extends State<AddressTranslate> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TextButton.icon(
-            onPressed: () {},
-            label: Obx(() => Text(
-                  systemProvider.point.value.toString(),
-                  style: Theme.of(context).textTheme.headlineLarge,
-                )),
-            icon: Icon(
-              Icons.payments_outlined,
-              size: ICON_SIZE,
-              color: Get.isDarkMode ? Colors.white70 : Colors.black87,
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.payments_outlined,
+                  size: ICON_SIZE,
+                  color: Get.isDarkMode ? Colors.white70 : Colors.black87,
+                ),
+                const SizedBox(width: 12),
+                Obx(() => Text(
+                      '${convertLocaleNumberFormat(systemProvider.point.value)}P',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    )),
+              ],
             ),
           ),
           Expanded(
@@ -154,8 +161,8 @@ class _AddressTranslateState extends State<AddressTranslate> {
                     padding: const EdgeInsets.all(12),
                     child: TextField(
                       readOnly: isTranslating,
-                      style: TextStyle(
-                        backgroundColor: isTranslating ? Colors.grey[300] : Colors.transparent,
+                      style: const TextStyle(
+                        backgroundColor: Colors.transparent,
                       ),
                       controller: _addressController,
                       textAlignVertical: TextAlignVertical.top,
@@ -163,53 +170,28 @@ class _AddressTranslateState extends State<AddressTranslate> {
                       decoration: InputDecoration(
                         alignLabelWithHint: true,
                         border: const OutlineInputBorder(),
-                        labelText: 'Address'.tr,
+                        labelText: 'addressTextFieldHinttext'.tr,
                       ),
                     ),
                   ),
                   if (translatedAddress.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(right: 12, left: 12, bottom: 12),
-                      child: ListTile(
-                        tileColor: Colors.lightBlue[100],
-                        title: Text(translatedAddress),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                addressConverterHelper.insert(
-                                  AddressConverterModel(address: translatedAddress).toMap(),
-                                );
-
-                                loadAddressConverter();
-                                setState(() {
-                                  translatedAddress = '';
-                                  _addressController.text = '';
-                                });
-                              },
-                              icon: const Icon(Icons.add_circle_outline),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Clipboard.setData(
-                                  ClipboardData(text: translatedAddress),
-                                );
-
-                                Get.snackbar('Copied', translatedAddress);
-                              },
-                              icon: const Icon(Icons.copy),
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: renderResultArea(),
                     ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12, right: 12),
                     child: isTranslating
-                        ? const LinearProgressIndicator()
+                        ? LinearProgressIndicator(
+                            minHeight: 20,
+                            backgroundColor: Colors.transparent,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Get.isDarkMode ? Colors.white60 : Colors.black54,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          )
                         : ActionButtonWidget(
-                            onPressed: handleTryTranslate,
+                            onPressed: () => handleTryTranslate(context),
                             buttonText: 'translateButton'.tr,
                           ),
                   ),
@@ -221,6 +203,50 @@ class _AddressTranslateState extends State<AddressTranslate> {
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget renderResultArea() {
+    if (translatedAddress.contains("reject")) {
+      return Text(
+        'translateError'.tr,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyLarge,
+      );
+    }
+
+    return ListTile(
+      tileColor: Get.isDarkMode ? Colors.black87 : Colors.white,
+      title: Text(translatedAddress),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            onPressed: () {
+              addressConverterHelper.insert(
+                AddressConverterModel(address: translatedAddress).toMap(),
+              );
+
+              loadAddressConverter();
+              setState(() {
+                translatedAddress = '';
+                _addressController.text = '';
+              });
+            },
+            icon: const Icon(Icons.add_circle_outline),
+          ),
+          IconButton(
+            onPressed: () {
+              Clipboard.setData(
+                ClipboardData(text: translatedAddress),
+              );
+
+              Get.snackbar('copiedText'.tr, translatedAddress);
+            },
+            icon: const Icon(Icons.copy),
           ),
         ],
       ),

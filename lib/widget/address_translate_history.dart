@@ -40,7 +40,7 @@ class _AddressTranslateHistoryWidgetState extends State<AddressTranslateHistoryW
                       ClipboardData(text: widget.list[index].address),
                     );
 
-                    Get.snackbar('Copied', widget.list[index].address);
+                    Get.snackbar('copiedText'.tr, widget.list[index].address);
                   },
                   icon: const Icon(Icons.copy),
                 ),
