@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return GetMaterialApp(
+        debugShowCheckedModeBanner: !kReleaseMode,
         translations: TranslateText(), // 다국어 번역 클래스 추가
         locale: Get.deviceLocale, // 기기 설정 언어로 설정
         fallbackLocale: const Locale('en', 'US'), // 기본 언어 설정

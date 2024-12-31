@@ -6,18 +6,18 @@
     "configurations": [
         
         {
-            "name": "life_secretary",
+            "name": "tool spot",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "life_secretary (profile mode)",
+            "name": "tool spot (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "life_secretary (release mode)",
+            "name": "tool spot (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
