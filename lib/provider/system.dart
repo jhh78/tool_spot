@@ -60,4 +60,12 @@ class SystemProvider extends GetxService {
     final Box pointBox = await Hive.openBox(POINT);
     pointBox.put(POINT, this.point.value);
   }
+
+  Color getSystemThemeColor() {
+    if (themeMode.value == ThemeMode.light) {
+      return Colors.black.withAlpha(200);
+    } else {
+      return Colors.white.withAlpha(200);
+    }
+  }
 }

@@ -25,10 +25,6 @@ class SettingMenu extends StatelessWidget {
     );
   }
 
-  Color getThemeColor() {
-    return systemProvider.themeMode.value == ThemeMode.dark ? Colors.white70 : Colors.black54;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,13 +49,13 @@ class SettingMenu extends StatelessWidget {
                   Icon(
                     Icons.light_mode_outlined,
                     size: ICON_SIZE,
-                    color: getThemeColor(),
+                    color: systemProvider.getSystemThemeColor(),
                   ),
                   renderSwitchMenuItem(),
                   Icon(
                     Icons.dark_mode_outlined,
                     size: ICON_SIZE,
-                    color: getThemeColor(),
+                    color: systemProvider.getSystemThemeColor(),
                   ),
                 ],
               ),
@@ -74,12 +70,12 @@ class SettingMenu extends StatelessWidget {
                   Icon(
                     Icons.play_circle_outline_sharp,
                     size: ICON_SIZE,
-                    color: getThemeColor(),
+                    color: systemProvider.getSystemThemeColor(),
                   ),
                   Text(
                     'pointAdd'.tr,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: getThemeColor(),
+                          color: systemProvider.getSystemThemeColor(),
                         ),
                   ),
                 ],

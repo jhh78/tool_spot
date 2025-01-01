@@ -6,22 +6,17 @@ import 'package:life_secretary/util/util.dart';
 class MenuCard extends StatelessWidget {
   MenuCard({
     super.key,
+    required this.descript,
     required this.icon,
     required this.callback,
     this.isRotate = false,
   });
 
+  final String descript;
   final IconData icon;
   final Function callback;
   final bool isRotate;
   final SystemProvider systemProvider = Get.put(SystemProvider());
-
-  Color getIconColor(BuildContext context) {
-    if (systemProvider.themeMode.value == ThemeMode.dark) {
-      return Colors.white60;
-    }
-    return Colors.black87;
-  }
 
   Widget renderIcon(BuildContext context) {
     if (isRotate) {
@@ -31,7 +26,7 @@ class MenuCard extends StatelessWidget {
           () => Icon(
             icon,
             size: getIconSize(context),
-            color: getIconColor(context),
+            color: systemProvider.getSystemThemeColor(),
           ),
         ),
       );
@@ -39,7 +34,7 @@ class MenuCard extends StatelessWidget {
     return Obx(() => Icon(
           icon,
           size: getIconSize(context),
-          color: getIconColor(context),
+          color: systemProvider.getSystemThemeColor(),
         ));
   }
 
@@ -53,7 +48,14 @@ class MenuCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: renderIcon(context),
+        child: Column(
+          children: [
+            renderIcon(context),
+            Text(
+              descript,
+            ),
+          ],
+        ),
       ),
     );
   }

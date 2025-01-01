@@ -39,6 +39,9 @@ class TranslateText extends Translations {
           'addressTranslate': '주소변환',
           'addressTextFieldHinttext': '변환할 주소를 입력해주세요',
           'translateButton': '변환하기(-20pt)',
+
+          // 근무표
+          'timeSheet': '근무표',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -77,9 +80,12 @@ class TranslateText extends Translations {
           'todoTitle': 'やること',
 
           // Address Translate Screen
-          'addressTranslate': 'アドレス変換',
-          'addressTextFieldHinttext': '変換するアドレスを入力してください',
+          'addressTranslate': '住所変換',
+          'addressTextFieldHinttext': '変換する住所を入力してください',
           'translateButton': '変換する（-20pt）',
+
+          // 勤務表
+          'timeSheet': '勤務表',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -121,6 +127,9 @@ class TranslateText extends Translations {
           'addressTranslate': 'Address Translate',
           'addressTextFieldHinttext': 'Enter the address to convert',
           'translateButton': 'Translate(-20pt)',
+
+          // time sheet
+          'timeSheet': 'time sheet',
         },
       };
 }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:life_secretary/db/helper.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/translate_text.dart';
@@ -31,6 +32,7 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
 
+  await initializeDateFormatting();
   runApp(MyApp());
 }
 

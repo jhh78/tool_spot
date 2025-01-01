@@ -7,6 +7,7 @@ class RouterProvider extends GetxService {
   final FocusNode homeFocusNode = FocusNode();
   final FocusNode addressTranslateFocusNode = FocusNode();
   final FocusNode qrReaderFocusNode = FocusNode();
+  final FocusNode timeSheetFocusNode = FocusNode();
 
   void moveHome(BuildContext context) {
     screenIndex.value = 0;
@@ -21,5 +22,10 @@ class RouterProvider extends GetxService {
   void moveAddressTranslate(BuildContext context) {
     screenIndex.value = 2;
     FocusScope.of(context).requestFocus(addressTranslateFocusNode);
+  }
+
+  void moveTimeSheet(BuildContext context) {
+    screenIndex.value = 3;
+    FocusScope.of(context).requestFocus(timeSheetFocusNode);
   }
 }

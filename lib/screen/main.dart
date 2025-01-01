@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:life_secretary/provider/router.dart';
+import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/screen/address_translate.dart';
+import 'package:life_secretary/screen/time_sheet.dart';
 import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/widget/menu.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
@@ -20,6 +22,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final RouterProvider routerProvider = Get.put(RouterProvider());
+  final SystemProvider systemProvider = Get.put(SystemProvider());
   final ADManager adManager = Get.put(ADManager());
   bool isReady = false;
 
@@ -50,6 +53,8 @@ class _MainScreenState extends State<MainScreen> {
         return Text("qrReaderTitle".tr);
       case 2:
         return Text("addressTranslate".tr);
+      case 3:
+        return Text("timeSheet".tr);
       default:
         return Text("mainHomeTitle".tr);
     }
@@ -61,9 +66,10 @@ class _MainScreenState extends State<MainScreen> {
         onPressed: () {
           routerProvider.moveHome(context);
         },
-        icon: const Icon(
+        icon: Icon(
           Icons.home_outlined,
           size: ICON_SIZE,
+          color: systemProvider.getSystemThemeColor(),
         ),
       );
     }
@@ -98,6 +104,7 @@ class _MainScreenState extends State<MainScreen> {
                       MenuScreen(),
                       const QrReaderScreen(),
                       const AddressTranslate(),
+                      const TimeSheetScreen(),
                     ],
                   ),
                 ),
