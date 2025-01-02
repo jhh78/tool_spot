@@ -42,6 +42,12 @@ class TranslateText extends Translations {
 
           // 근무표
           'timeSheet': '근무표',
+          'workSummary': '근무내역',
+          'workStart': '출근',
+          'workEnd': '퇴근',
+          'workRefresh': '휴식',
+          'workGraph': '통계',
+          'workTotal': '총시간',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -86,6 +92,12 @@ class TranslateText extends Translations {
 
           // 勤務表
           'timeSheet': '勤務表',
+          'workSummary': '勤務履歴',
+          'workStart': '出勤',
+          'workEnd': '退勤',
+          'workRefresh': '休憩',
+          'workGraph': '統計',
+          'workTotal': '合計',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -130,6 +142,12 @@ class TranslateText extends Translations {
 
           // time sheet
           'timeSheet': 'time sheet',
+          'workSummary': 'work summary',
+          'workStart': 'work start',
+          'workEnd': 'work end',
+          'workRefresh': 'work refresh',
+          'workGraph': 'work graph',
+          'workTotal': 'total',
         },
       };
 }

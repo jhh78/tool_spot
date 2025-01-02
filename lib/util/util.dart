@@ -71,3 +71,6 @@ DEVICE_TYPES checkDeviceType(BuildContext context) {
 
 // 로케일 숫자 포맷을 변환하는 함수
 String convertLocaleNumberFormat(int value) => NumberFormat('#,###').format(value);
+
+// 로케일 날짜 포맷을 변환하는 함수
+String convertLocaleDateFormat(DateTime date) => DateFormat(DATE_FORMAT).format(date);

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
-import 'package:life_secretary/util/constants.dart';
+import 'package:life_secretary/widget/table_calender.dart';
+import 'package:life_secretary/widget/work_sheet/bottom_navigation_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TimeSheetScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final SystemProvider systemProvider = Get.put(SystemProvider());
   DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
@@ -39,94 +41,187 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
     }
   }
 
+  void _onPageChanged(DateTime focusedDay) {
+    log('>>>>>>>>>>>>>>>>>>>> focusedDay: $focusedDay');
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    log('>>>>>>>>>>>>>>>>>>>> selectedDay: $selectedDay, focusedDay: $focusedDay');
+
+    setState(() {
+      _selectedDay = selectedDay;
+      _focusedDay = focusedDay;
+    });
+  }
+
+  List<Map<String, dynamic>> _eventLoader(DateTime day) {
+    log('>>>>>>>>>>>>>>>>>>>> day: $day');
+    return [
+      {
+        'id': 1,
+        'kind': 'start',
+        'descript': '$day 출근',
+        'time': '09:00',
+      },
+      {
+        'id': 2,
+        'kind': 'end',
+        'descript': '$day 퇴근',
+        'time': '18:00',
+      },
+      {
+        'id': 3,
+        'kind': 'refresh',
+        'descript': '$day 휴식',
+        'time': '1:00',
+      },
+    ];
+  }
+
+  Future<List<Map<String, dynamic>>> _fetchData(DateTime day) async {
+    log('>>>>>>>>>>>>>>>>>>>> _fetchData day: $day');
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    return [
+      {
+        'id': 1,
+        'kind': 'start',
+        'descript': '$day 출근',
+        'time': '09:00',
+      },
+      {
+        'id': 2,
+        'kind': 'end',
+        'descript': '$day 퇴근',
+        'time': '18:00',
+      },
+      {
+        'id': 3,
+        'kind': 'refresh',
+        'descript': '$day 휴식',
+        'time': '1:00',
+      },
+    ];
+  }
+
+  Color _getEventColor(Map<String, dynamic> event) {
+    if (event['kind'] == 'start') {
+      return Colors.green;
+    } else if (event['kind'] == 'end') {
+      return Colors.red;
+    } else if (event['kind'] == 'refresh') {
+      return Colors.blue;
+    } else {
+      return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TableCalendar(
+          TableCalenderWidget(
+            onPageChanged: _onPageChanged,
+            onDaySelected: _onDaySelected,
+            eventLoader: _eventLoader,
             focusedDay: _focusedDay,
-            firstDay: DateTime(1990),
-            lastDay: DateTime(2100),
-            locale: Get.locale.toString(),
-            onPageChanged: (focusedDay) {
-              log('>>>>>>>>>>>>>>>>>>>> focusedDay: $focusedDay');
-            },
-            availableCalendarFormats: const {
-              CalendarFormat.month: 'Month',
-            },
-            eventLoader: (day) {
-              return [1, 2, 3];
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              log('>>>>>>>>>>>>>>>>>>>> selectedDay: $selectedDay, focusedDay: $focusedDay');
-              setState(() {
-                _focusedDay = focusedDay;
-              });
-              Get.defaultDialog(
-                title: '근태기록',
-                content: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '날짜: ${selectedDay.toLocal()}',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '근무 시간: 9:00 AM - 6:00 PM',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '휴식 시간: 1:00 PM - 2:00 PM',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '총 근무 시간: 8시간',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            // Change the state to show input fields
-                          });
-                        },
-                        child: Text('수정'),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
+            selectedDay: _selectedDay,
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, date, events) {
+                if (events.isNotEmpty) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(2),
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: _getEventColor(events[index]),
+                              shape: BoxShape.rectangle,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+                return null;
+              },
+            ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
+            child: FutureBuilder(
+              future: _fetchData(_selectedDay),
+              builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                }
+
+                return Scaffold(
+                  body: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text(
+                          snapshot.data![index]['descript'],
+                          style: TextStyle(
+                            color: _getEventColor(snapshot.data![index]),
+                          ),
+                        ),
+                        subtitle: Text(
+                          snapshot.data![index]['time'],
+                          style: TextStyle(
+                            color: _getEventColor(snapshot.data![index]),
+                          ),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                log('>>>>>>>>>>>>>>>>>>>> Edit button pressed');
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+                                log('>>>>>>>>>>>>>>>>>>>> Delete button pressed');
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  child: ListTile(
-                    title: Text('근태기록 $index'),
+                  bottomNavigationBar: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Add',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -134,50 +229,7 @@ class _TimeSheetScreenState extends State<TimeSheetScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          unselectedLabelStyle: TextStyle(color: systemProvider.getSystemThemeColor()),
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                size: ICON_SIZE,
-                Icons.upload_outlined,
-                color: systemProvider.getSystemThemeColor(),
-              ),
-              label: '출근',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                size: ICON_SIZE,
-                Icons.download_outlined,
-                color: systemProvider.getSystemThemeColor(),
-              ),
-              label: '퇴근',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                size: ICON_SIZE,
-                Icons.local_cafe_outlined,
-                color: systemProvider.getSystemThemeColor(),
-              ),
-              label: '휴식',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                size: ICON_SIZE,
-                Icons.auto_graph_outlined,
-                color: systemProvider.getSystemThemeColor(),
-              ),
-              label: '통계',
-            ),
-          ],
-          onTap: (index) {
-            log('>>>>>>>>>>>>>>>>>>>> index: $index');
-          },
-        ),
-      ),
+      bottomNavigationBar: BottomNavigationBarWidget(),
     );
   }
 }

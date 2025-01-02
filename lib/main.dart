@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         translations: TranslateText(), // 다국어 번역 클래스 추가
         locale: Get.deviceLocale, // 기기 설정 언어로 설정
-        fallbackLocale: const Locale('en', 'US'), // 기본 언어 설정
+        fallbackLocale: const Locale('ko', 'KR'), // 기본 언어 설정
         theme: ThemeData(
           useMaterial3: true,
         ),
