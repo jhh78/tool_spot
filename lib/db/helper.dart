@@ -11,10 +11,10 @@ class DatabaseHelper {
   }
 
   Future<Database> initDatabase() async {
-    String path = join(await getDatabasesPath(), 'application');
+    String path = join(await getDatabasesPath(), 'com.oc.st.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -36,14 +36,17 @@ class DatabaseHelper {
       ''');
     }
 
-    // if (oldVersion < 2) {
-    //   await db.execute('''
-    //     CREATE TABLE ccc(
-    //       id INTEGER PRIMARY KEY AUTOINCREMENT,
-    //       address TEXT
-    //     )
-    //   ''');
-    // }
+    if (oldVersion < 2) {
+      await db.execute('''
+        CREATE TABLE work_sheet(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          kind char(5),
+          date datetime,
+          ymd DATE,
+          hms time
+        );
+      ''');
+    }
 
     // if (oldVersion < 3) {
     //   await db.execute('''

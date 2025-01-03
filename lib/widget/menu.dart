@@ -29,7 +29,7 @@ class MenuScreen extends StatelessWidget {
       MenuCard(
         descript: 'timeSheet'.tr,
         icon: Icons.schedule,
-        callback: () => routerProvider.moveTimeSheet(context),
+        callback: () => routerProvider.moveWorkSheet(context),
       ),
     ];
     return Padding(

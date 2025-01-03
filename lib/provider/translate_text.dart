@@ -18,6 +18,7 @@ class TranslateText extends Translations {
           'lackPoints': '포인트가 부족합니다',
           'requiredData': '테이터를 입력해주세요',
           'translateError': '번역에 실패하였습니다\n올바른 주소를 입력해주세요',
+          'duplicateData': '중복입력입니다.',
 
           // setting menu
           'pointAdd': '포인트 추가',
@@ -46,6 +47,7 @@ class TranslateText extends Translations {
           'workStart': '출근',
           'workEnd': '퇴근',
           'workRefresh': '휴식',
+          'workRefreshTimeSetting': '휴식시간 설정',
           'workGraph': '통계',
           'workTotal': '총시간',
         },
@@ -64,6 +66,7 @@ class TranslateText extends Translations {
           'lackPoints': 'ポイントが足りないです',
           'requiredData': 'データを入力してください',
           'translateError': '翻訳に失敗しました\n正しいアドレスを入力してください',
+          'duplicateData': '重複入力です',
 
           // setting menu
           'pointAdd': 'ポイント追加',
@@ -96,6 +99,7 @@ class TranslateText extends Translations {
           'workStart': '出勤',
           'workEnd': '退勤',
           'workRefresh': '休憩',
+          'workRefreshTimeSetting': '休憩時間設定',
           'workGraph': '統計',
           'workTotal': '合計',
         },
@@ -114,6 +118,7 @@ class TranslateText extends Translations {
           'lackPoints': 'Lack of points',
           'requiredData': 'Please enter the data',
           'translateError': 'Translation failed\nPlease enter a valid address',
+          'duplicateData': 'Duplicate input',
 
           // setting menu
           'pointAdd': 'Add Point',
@@ -146,6 +151,7 @@ class TranslateText extends Translations {
           'workStart': 'work start',
           'workEnd': 'work end',
           'workRefresh': 'work refresh',
+          'workRefreshTimeSetting': 'time setting',
           'workGraph': 'work graph',
           'workTotal': 'total',
         },

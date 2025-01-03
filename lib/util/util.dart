@@ -74,3 +74,9 @@ String convertLocaleNumberFormat(int value) => NumberFormat('#,###').format(valu
 
 // 로케일 날짜 포맷을 변환하는 함수
 String convertLocaleDateFormat(DateTime date) => DateFormat(DATE_FORMAT).format(date);
+
+// 로케일 시간 포맷을 변환하는 함수
+String convertLocaleTimeFormat(DateTime date) => DateFormat(TIME_FORMAT).format(date);
+
+// 로케일 날짜시간 포맷을 변환하는 함수
+String convertLocaleDateTimeFormat(DateTime date) => DateFormat(DATE_TIME_FORMAT).format(date);
