@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/db/work_sheet.dart';
@@ -19,6 +21,7 @@ class WorkSheetProvider extends GetxController {
   void onInit() {
     super.onInit();
     routerProvider.workSheetFocusNode.addListener(_onFocusChange);
+    onFetchCalenderData();
   }
 
   @override
@@ -31,67 +34,51 @@ class WorkSheetProvider extends GetxController {
 
   void _onFocusChange() async {
     if (routerProvider.workSheetFocusNode.hasFocus) {
-      await onFetchCalenderData();
+      onFetchCalenderData();
     }
   }
 
   Future<void> onFetchCalenderData() async {
     final List<Map<String, WorkSheetModel>> list = await workSheetHalper.getList();
 
-    events.clear();
+    final Map<String, List<WorkSheetModel>> temp = {};
     for (Map<String, WorkSheetModel> item in list) {
-      if (!events.containsKey(item.keys.first)) {
-        events[item.keys.first] = [];
+      if (!temp.containsKey(item.keys.first)) {
+        temp[item.keys.first] = [];
       }
 
-      events[item.keys.first]!.add(item.values.first);
+      temp[item.keys.first]!.add(item.values.first);
     }
 
-    filteredData.clear();
-    filteredData.addAll(
-        list.where((element) => element.keys.first == convertLocaleDateFormat(selectedDay.value)).map((e) => e.values.first).toList());
+    events.value = temp;
+    filteredData.value =
+        list.where((element) => element.keys.first == convertLocaleDateFormat(selectedDay.value)).map((e) => e.values.first).toList();
   }
 
   Future<void> startWork() async {
-    final DateTime now = DateTime.now();
-    workSheetHalper
-        .attendanceRecords(
-      WorkSheetModel(
-        kind: WORK_SHEET_KIND_START,
-        date: convertLocaleDateTimeFormat(now),
-        ymd: convertLocaleDateFormat(now),
-        hms: convertLocaleTimeFormat(now),
-      ),
-    )
-        .then((value) {
-      onFetchCalenderData();
-    }).catchError((e) async {
+    try {
+      await workSheetHalper.attendanceRecords();
+      await onFetchCalenderData();
+    } catch (e) {
+      log('error: $e');
       Get.defaultDialog(
         title: 'error'.tr,
         content: Text("duplicateData".tr),
       );
-    });
+    }
   }
 
   Future<void> endWork() async {
-    final DateTime now = DateTime.now();
-    workSheetHalper
-        .attendanceRecords(
-      WorkSheetModel(
-        kind: WORK_SHEET_KIND_END,
-        date: convertLocaleDateTimeFormat(now),
-        ymd: convertLocaleDateFormat(now),
-        hms: convertLocaleTimeFormat(now),
-      ),
-    )
-        .then((value) {
-      onFetchCalenderData();
-    }).catchError((e) async {
+    try {
+      await workSheetHalper.update();
+      await onFetchCalenderData();
+    } catch (e) {
+      log('error: $e');
       Get.defaultDialog(
         title: 'error'.tr,
         content: Text("duplicateData".tr),
       );
-    });
+    }
   }
 
   Future<void> deleteItem(int id) async {
@@ -113,6 +100,10 @@ class WorkSheetProvider extends GetxController {
   }
 
   List<WorkSheetModel> eventLoader(DateTime day) {
+    if (!routerProvider.workSheetFocusNode.hasFocus) {
+      return [];
+    }
+
     final String ymd = convertLocaleDateFormat(day);
     return events[ymd] ?? [];
   }

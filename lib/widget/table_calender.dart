@@ -3,6 +3,14 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TableCalenderWidget extends StatelessWidget {
+  final Function(DateTime)? onPageChanged;
+  final Function(DateTime, DateTime)? onDaySelected;
+  final List<dynamic> Function(DateTime)? eventLoader;
+  final DateTime focusedDay;
+  final DateTime selectedDay;
+  final bool shouldFillViewport;
+  final CalendarBuilders<dynamic>? calendarBuilders;
+
   const TableCalenderWidget({
     super.key,
     required this.onPageChanged,
@@ -14,14 +22,6 @@ class TableCalenderWidget extends StatelessWidget {
     this.calendarBuilders,
   });
 
-  final Function(DateTime)? onPageChanged;
-  final Function(DateTime, DateTime)? onDaySelected;
-  final List<dynamic> Function(DateTime)? eventLoader;
-  final DateTime focusedDay;
-  final DateTime selectedDay;
-  final bool shouldFillViewport;
-  final CalendarBuilders<dynamic>? calendarBuilders;
-
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
@@ -32,7 +32,7 @@ class TableCalenderWidget extends StatelessWidget {
       shouldFillViewport: shouldFillViewport,
       selectedDayPredicate: (day) => isSameDay(selectedDay, day),
       onPageChanged: onPageChanged,
-      calendarBuilders: calendarBuilders ?? calendarBuilders!,
+      calendarBuilders: calendarBuilders ?? const CalendarBuilders(),
       availableCalendarFormats: const {
         CalendarFormat.month: 'Month',
       },

@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:life_secretary/db/helper.dart';
 import 'package:life_secretary/model/work_sheet.dart';
 import 'package:life_secretary/util/util.dart';
@@ -11,20 +10,28 @@ class WorkSheetHalper {
     return await DatabaseHelper().database;
   }
 
-  Future<int> attendanceRecords(WorkSheetModel params) async {
+  Future<void> attendanceRecords() async {
     try {
       Database db = await database;
+      final DateTime now = DateTime.now();
+
       final List<Map<String, dynamic>> list = await db.query(
         tableName,
-        where: 'kind = ?',
-        whereArgs: [params.kind],
+        where: 'ymd = ?',
+        whereArgs: [convertLocaleDateFormat(now)],
       );
 
       if (list.isNotEmpty) {
         throw Exception('duplicate');
       }
 
-      return await db.insert(tableName, params.toMap());
+      await db.insert(
+          tableName,
+          WorkSheetModel(
+            date: convertLocaleDateTimeFormat(now),
+            ymd: convertLocaleDateFormat(now),
+            start_time: convertLocaleTimeFormat(now),
+          ).toMap());
     } catch (e) {
       rethrow;
     }
@@ -49,7 +56,7 @@ class WorkSheetHalper {
 
     // 쿼리 실행
     final List<Map<String, dynamic>> result = await db.query(
-      'work_sheet',
+      tableName,
       where: 'ymd BETWEEN ? AND ?',
       whereArgs: [firstDayOfPreviousMonthStr, firstDayOfNextMonthStr],
     );
@@ -63,10 +70,17 @@ class WorkSheetHalper {
     return list;
   }
 
-  Future<int> update(Map<String, dynamic> todo) async {
-    Database db = await database;
-    int id = todo['id'];
-    return await db.update(tableName, todo, where: 'id = ?', whereArgs: [id]);
+  Future<void> update() async {
+    // Database db = await database;
+
+    // final List<Map<String, dynamic>> list = await db.query(
+    //   tableName,
+    //   where: 'ymd = ?',
+    //   whereArgs: [params.ymd],
+    // );
+
+    // int id = todo['id'];
+    // return await db.update(tableName, todo, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> delete(int id) async {

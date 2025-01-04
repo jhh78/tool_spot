@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -27,6 +29,7 @@ class DatabaseHelper {
 
   // Upgrade Table
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    log('oldVersion: $oldVersion, newVersion: $newVersion');
     if (oldVersion < 1) {
       await db.execute('''
         CREATE TABLE address_converter(
@@ -38,13 +41,23 @@ class DatabaseHelper {
 
     if (oldVersion < 2) {
       await db.execute('''
-        CREATE TABLE work_sheet(
+        CREATE TABLE IF NOT EXISTS work_sheet(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          kind char(5),
           date datetime,
           ymd DATE,
-          hms time
-        );
+          start_time TIME,
+          end_time TIME
+        )
+      ''');
+
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS break_time(
+          work_sheet_id INTEGER,
+          start_time TIME,
+          end_time TIME,
+          value INTEGER,
+          FOREIGN KEY(work_sheet_id) REFERENCES work_sheet(ymd) ON DELETE CASCADE
+        )
       ''');
     }
 

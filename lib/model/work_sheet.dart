@@ -1,35 +1,34 @@
 class WorkSheetModel {
   int? id;
-  String kind;
   String date;
   String ymd;
-  String hms;
+  String start_time;
+  String? end_time;
 
   WorkSheetModel({
     this.id,
-    required this.kind,
     required this.date,
     required this.ymd,
-    required this.hms,
+    required this.start_time,
+    this.end_time = '',
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'kind': kind,
       'date': date,
       'ymd': ymd,
-      'hms': hms,
+      'start_time': start_time,
+      'end_time': end_time,
     };
   }
 
   factory WorkSheetModel.fromMap(Map<String, dynamic> map) {
     return WorkSheetModel(
       id: map['id'],
-      kind: map['kind'],
       date: map['date'],
       ymd: map['ymd'],
-      hms: map['hms'],
+      start_time: map['start_time'],
+      end_time: map['end_time'],
     );
   }
 }

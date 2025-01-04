@@ -49,6 +49,7 @@ class MenuCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             renderIcon(context),
             Text(

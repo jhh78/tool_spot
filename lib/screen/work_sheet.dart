@@ -28,17 +28,17 @@ class WorkSheetScreen extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           title: Text(
-            workSheetProvider.filteredData[index].kind,
-            style: TextStyle(
-              color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
-            ),
+            "workSheetProvider.filteredData[index].kind",
+            // style: TextStyle(
+            //   color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
+            // ),
           ),
-          subtitle: Text(
-            workSheetProvider.filteredData[index].hms,
-            style: TextStyle(
-              color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
-            ),
-          ),
+          // subtitle: Text(
+          //   workSheetProvider.filteredData[index].hms,
+          //   style: TextStyle(
+          //     color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
+          //   ),
+          // ),
           trailing: IconButton(
             icon: const Icon(Icons.remove_circle_outline),
             onPressed: () {
@@ -68,37 +68,37 @@ class WorkSheetScreen extends StatelessWidget {
             () => TableCalenderWidget(
               onPageChanged: workSheetProvider.onPageChanged,
               onDaySelected: workSheetProvider.onDaySelected,
-              eventLoader: routerProvider.workSheetFocusNode.hasFocus ? workSheetProvider.eventLoader : null,
+              eventLoader: workSheetProvider.eventLoader,
               focusedDay: workSheetProvider.focusedDay.value,
               selectedDay: workSheetProvider.selectedDay.value,
-              calendarBuilders: CalendarBuilders(
-                markerBuilder: (context, date, events) {
-                  if (events.isNotEmpty) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: events.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.all(2),
-                              width: 5,
-                              height: 10,
-                              decoration: BoxDecoration(
-                                color: workSheetProvider.getEventColor(events[index].kind),
-                                shape: BoxShape.rectangle,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
-                  return null;
-                },
-              ),
+              // calendarBuilders: CalendarBuilders(
+              //   markerBuilder: (context, date, events) {
+              //     if (events.isNotEmpty) {
+              //       return ListView.builder(
+              //         shrinkWrap: true,
+              //         scrollDirection: Axis.horizontal,
+              //         itemCount: events.length,
+              //         itemBuilder: (context, index) {
+              //           return Column(
+              //             mainAxisAlignment: MainAxisAlignment.end,
+              //             children: [
+              //               Container(
+              //                 margin: const EdgeInsets.all(2),
+              //                 width: 5,
+              //                 height: 10,
+              //                 // decoration: BoxDecoration(
+              //                 //   color: workSheetProvider.getEventColor(events[index].kind),
+              //                 //   shape: BoxShape.rectangle,
+              //                 // ),
+              //               ),
+              //             ],
+              //           );
+              //         },
+              //       );
+              //     }
+              //     return null;
+              //   },
+              // ),
             ),
           ),
           Expanded(
