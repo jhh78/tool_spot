@@ -11,8 +11,9 @@ import 'package:life_secretary/util/util.dart';
 class WorkSheetProvider extends GetxController {
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final WorkSheetHalper workSheetHalper = WorkSheetHalper();
-  RxList<WorkSheetModel> filteredData = <WorkSheetModel>[].obs;
-  RxMap<String, List<WorkSheetModel>> events = <String, List<WorkSheetModel>>{}.obs;
+  final Map<String, List<WorkSheetViewModel>> events = <String, List<WorkSheetViewModel>>{};
+
+  RxList<WorkSheetViewModel> filteredData = <WorkSheetViewModel>[].obs;
   RxInt refreshTime = 0.obs;
   Rx<DateTime> selectedDay = DateTime.now().obs;
   Rx<DateTime> focusedDay = DateTime.now().obs;
@@ -21,7 +22,6 @@ class WorkSheetProvider extends GetxController {
   void onInit() {
     super.onInit();
     routerProvider.workSheetFocusNode.addListener(_onFocusChange);
-    onFetchCalenderData();
   }
 
   @override
@@ -34,25 +34,37 @@ class WorkSheetProvider extends GetxController {
 
   void _onFocusChange() async {
     if (routerProvider.workSheetFocusNode.hasFocus) {
-      onFetchCalenderData();
+      await onFetchCalenderData();
     }
   }
 
   Future<void> onFetchCalenderData() async {
-    final List<Map<String, WorkSheetModel>> list = await workSheetHalper.getList();
+    final List<Map<String, WorkSheetModel>> list = await workSheetHalper.getList(focusedDay.value);
 
-    final Map<String, List<WorkSheetModel>> temp = {};
+    events.clear();
     for (Map<String, WorkSheetModel> item in list) {
-      if (!temp.containsKey(item.keys.first)) {
-        temp[item.keys.first] = [];
+      if (!events.containsKey(item.keys.first)) {
+        events[item.keys.first] = [];
       }
 
-      temp[item.keys.first]!.add(item.values.first);
+      if (item[item.keys.first]?.start_time != null) {
+        events[item.keys.first]!.add(WorkSheetViewModel(
+          ymd: item.keys.first,
+          kind: WORK_SHEET_KIND_START,
+          time: convertLocaleTimeFormat(DateTime.parse(item[item.keys.first]!.start_time)),
+        ));
+      }
+
+      if (item[item.keys.first]?.end_time != null) {
+        events[item.keys.first]!.add(WorkSheetViewModel(
+          ymd: item.keys.first,
+          kind: WORK_SHEET_KIND_END,
+          time: convertLocaleTimeFormat(DateTime.parse(item[item.keys.first]!.end_time ?? '')),
+        ));
+      }
     }
 
-    events.value = temp;
-    filteredData.value =
-        list.where((element) => element.keys.first == convertLocaleDateFormat(selectedDay.value)).map((e) => e.values.first).toList();
+    onDaySelected(selectedDay.value, focusedDay.value);
   }
 
   Future<void> startWork() async {
@@ -76,7 +88,10 @@ class WorkSheetProvider extends GetxController {
       log('error: $e');
       Get.defaultDialog(
         title: 'error'.tr,
-        content: Text("duplicateData".tr),
+        content: Text(
+          "workTimeUpdateFail".tr,
+          textAlign: TextAlign.center,
+        ),
       );
     }
   }
@@ -89,17 +104,19 @@ class WorkSheetProvider extends GetxController {
   void onPageChanged(DateTime focusedDay) async {
     await onFetchCalenderData();
     this.focusedDay.value = focusedDay;
+    log('focusedDay: $focusedDay');
   }
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     final String ymd = convertLocaleDateFormat(selectedDay);
     this.selectedDay.value = selectedDay;
+    final fData = events.entries.firstWhere((element) => element.key == ymd, orElse: () => MapEntry(ymd, [])).value;
 
     filteredData.clear();
-    filteredData.addAll(events[ymd] ?? []);
+    filteredData.addAll(fData);
   }
 
-  List<WorkSheetModel> eventLoader(DateTime day) {
+  List<WorkSheetViewModel> eventLoader(DateTime day) {
     if (!routerProvider.workSheetFocusNode.hasFocus) {
       return [];
     }
@@ -117,6 +134,23 @@ class WorkSheetProvider extends GetxController {
       return Colors.blue;
     } else {
       return Colors.grey;
+    }
+  }
+
+  Future<void> breakTime() async {
+    try {
+      await workSheetHalper.breakTimeRecords(refreshTime.value);
+      await onFetchCalenderData();
+      refreshTime.value = 0;
+    } catch (e) {
+      log('error: $e');
+      Get.defaultDialog(
+        title: 'error'.tr,
+        content: Text(
+          "workTimeUpdateFail".tr,
+          textAlign: TextAlign.center,
+        ),
+      );
     }
   }
 

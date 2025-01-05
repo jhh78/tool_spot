@@ -50,6 +50,7 @@ class TranslateText extends Translations {
           'workRefreshTimeSetting': '휴식시간 설정',
           'workGraph': '통계',
           'workTotal': '총시간',
+          'workTimeUpdateFail': '출근시간이 없거나\n퇴근시간이 존재합니다',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -102,6 +103,7 @@ class TranslateText extends Translations {
           'workRefreshTimeSetting': '休憩時間設定',
           'workGraph': '統計',
           'workTotal': '合計',
+          'workTimeUpdateFail': '出勤時間がないか\n退勤時間が存在します',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -154,6 +156,7 @@ class TranslateText extends Translations {
           'workRefreshTimeSetting': 'time setting',
           'workGraph': 'work graph',
           'workTotal': 'total',
+          'workTimeUpdateFail': 'There is no start time\nor there is an end time',
         },
       };
 }

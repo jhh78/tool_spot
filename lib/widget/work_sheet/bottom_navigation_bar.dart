@@ -89,8 +89,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
                     if (workSheetProvider.refreshTime.value > 0)
                       ElevatedButton(
                         onPressed: () {
-                          log('>>>>>>>>>>>>>>>>>>>> 휴식');
-                          workSheetProvider.refreshTime.value = 0;
+                          workSheetProvider.breakTime();
                           Get.back();
                         },
                         child: Text('workRefresh'.tr),

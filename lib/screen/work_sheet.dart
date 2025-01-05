@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:life_secretary/model/work_sheet.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/work_sheet.dart';
+import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/table_calender.dart';
 import 'package:life_secretary/widget/work_sheet/bottom_navigation_bar.dart';
@@ -15,6 +17,21 @@ class WorkSheetScreen extends StatelessWidget {
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final SystemProvider systemProvider = Get.put(SystemProvider());
   final WorkSheetProvider workSheetProvider = Get.put(WorkSheetProvider());
+
+  String getTitleText(WorkSheetViewModel param) {
+    final kind = param.kind;
+    final time = param.time;
+    String title = '';
+    if (kind == WORK_SHEET_KIND_START) {
+      title = 'workStart'.tr;
+    } else if (kind == WORK_SHEET_KIND_END) {
+      title = 'workEnd'.tr;
+    } else if (kind == WORK_SHEET_KIND_REST) {
+      title = 'breakTime'.tr;
+    }
+
+    return '$title $time';
+  }
 
   Widget renderItemList() {
     if (workSheetProvider.filteredData.isEmpty) {
@@ -28,22 +45,10 @@ class WorkSheetScreen extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           title: Text(
-            "workSheetProvider.filteredData[index].kind",
-            // style: TextStyle(
-            //   color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
-            // ),
-          ),
-          // subtitle: Text(
-          //   workSheetProvider.filteredData[index].hms,
-          //   style: TextStyle(
-          //     color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
-          //   ),
-          // ),
-          trailing: IconButton(
-            icon: const Icon(Icons.remove_circle_outline),
-            onPressed: () {
-              workSheetProvider.deleteItem(workSheetProvider.filteredData[index].id!);
-            },
+            getTitleText(workSheetProvider.filteredData[index]),
+            style: TextStyle(
+              color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
+            ),
           ),
         );
       },
@@ -71,34 +76,34 @@ class WorkSheetScreen extends StatelessWidget {
               eventLoader: workSheetProvider.eventLoader,
               focusedDay: workSheetProvider.focusedDay.value,
               selectedDay: workSheetProvider.selectedDay.value,
-              // calendarBuilders: CalendarBuilders(
-              //   markerBuilder: (context, date, events) {
-              //     if (events.isNotEmpty) {
-              //       return ListView.builder(
-              //         shrinkWrap: true,
-              //         scrollDirection: Axis.horizontal,
-              //         itemCount: events.length,
-              //         itemBuilder: (context, index) {
-              //           return Column(
-              //             mainAxisAlignment: MainAxisAlignment.end,
-              //             children: [
-              //               Container(
-              //                 margin: const EdgeInsets.all(2),
-              //                 width: 5,
-              //                 height: 10,
-              //                 // decoration: BoxDecoration(
-              //                 //   color: workSheetProvider.getEventColor(events[index].kind),
-              //                 //   shape: BoxShape.rectangle,
-              //                 // ),
-              //               ),
-              //             ],
-              //           );
-              //         },
-              //       );
-              //     }
-              //     return null;
-              //   },
-              // ),
+              calendarBuilders: CalendarBuilders(
+                markerBuilder: (context, date, events) {
+                  if (events.isNotEmpty) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: events.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(2),
+                              width: 5,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: workSheetProvider.getEventColor(events[index].kind),
+                                shape: BoxShape.rectangle,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                  return null;
+                },
+              ),
             ),
           ),
           Expanded(
