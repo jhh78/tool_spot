@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:life_secretary/model/break_time.dart';
 
 class WorkSheetModel {
@@ -7,7 +6,7 @@ class WorkSheetModel {
   String ymd;
   String start_time;
   String? end_time;
-  BreakTimeModel? breakTime;
+  List<BreakTimeModel>? breakTime;
 
   WorkSheetModel({
     this.id,
@@ -18,12 +17,17 @@ class WorkSheetModel {
     this.breakTime,
   });
 
+  void setBreakTime(List<BreakTimeModel> breakTime) {
+    this.breakTime = breakTime;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'date': date,
       'ymd': ymd,
       'start_time': start_time,
       'end_time': end_time,
+      'breakTime': breakTime,
     };
   }
 
@@ -34,20 +38,27 @@ class WorkSheetModel {
       ymd: map['ymd'],
       start_time: map['start_time'],
       end_time: map['end_time'],
-      breakTime: map['breakTime'] != null ? BreakTimeModel.fromMap(map['breakTime']) : null,
+      breakTime: map['breakTime'],
     );
   }
 }
 
 class WorkSheetViewModel {
+  final String id;
   final String kind;
   final String time;
   final String ymd;
+  final DateTime sortTime;
+
   String? start_time;
   String? end_time;
   int? value;
 
+  String? uuid;
+
   WorkSheetViewModel({
+    required this.id,
+    required this.sortTime,
     required this.kind,
     required this.time,
     required this.ymd,

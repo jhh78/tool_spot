@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/db/work_sheet.dart';
+import 'package:life_secretary/model/break_time.dart';
 import 'package:life_secretary/model/work_sheet.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/util/constants.dart';
@@ -14,7 +15,7 @@ class WorkSheetProvider extends GetxController {
   final Map<String, List<WorkSheetViewModel>> events = <String, List<WorkSheetViewModel>>{};
 
   RxList<WorkSheetViewModel> filteredData = <WorkSheetViewModel>[].obs;
-  RxInt refreshTime = 0.obs;
+  RxInt refreshTime = 60.obs;
   Rx<DateTime> selectedDay = DateTime.now().obs;
   Rx<DateTime> focusedDay = DateTime.now().obs;
 
@@ -49,6 +50,8 @@ class WorkSheetProvider extends GetxController {
 
       if (item[item.keys.first]?.start_time != null) {
         events[item.keys.first]!.add(WorkSheetViewModel(
+          id: item[item.keys.first]!.id.toString(),
+          sortTime: DateTime.parse(item[item.keys.first]!.start_time),
           ymd: item.keys.first,
           kind: WORK_SHEET_KIND_START,
           time: convertLocaleTimeFormat(DateTime.parse(item[item.keys.first]!.start_time)),
@@ -57,11 +60,30 @@ class WorkSheetProvider extends GetxController {
 
       if (item[item.keys.first]?.end_time != null) {
         events[item.keys.first]!.add(WorkSheetViewModel(
+          id: item[item.keys.first]!.id.toString(),
+          sortTime: DateTime.parse(item[item.keys.first]!.end_time!),
           ymd: item.keys.first,
           kind: WORK_SHEET_KIND_END,
           time: convertLocaleTimeFormat(DateTime.parse(item[item.keys.first]!.end_time ?? '')),
         ));
       }
+
+      if (item[item.keys.first]?.breakTime != null) {
+        for (BreakTimeModel breakTime in item[item.keys.first]!.breakTime!) {
+          events[item.keys.first]!.add(WorkSheetViewModel(
+            id: breakTime.id.toString(),
+            sortTime: DateTime.parse(breakTime.start_time),
+            ymd: item.keys.first,
+            kind: WORK_SHEET_KIND_REST,
+            time: convertLocaleTimeFormat(DateTime.parse(breakTime.start_time)),
+            start_time: convertLocaleTimeFormat(DateTime.parse(breakTime.start_time)),
+            end_time: convertLocaleTimeFormat(DateTime.parse(breakTime.end_time)),
+            value: breakTime.value,
+          ));
+        }
+      }
+
+      events[item.keys.first]!.sort((a, b) => a.sortTime.compareTo(b.sortTime));
     }
 
     onDaySelected(selectedDay.value, focusedDay.value);
@@ -96,8 +118,8 @@ class WorkSheetProvider extends GetxController {
     }
   }
 
-  Future<void> deleteItem(int id) async {
-    await workSheetHalper.delete(id);
+  Future<void> deleteBreakTimeItem(String id) async {
+    await workSheetHalper.deleteBreakTimeItem(id);
     onFetchCalenderData();
   }
 
@@ -127,11 +149,11 @@ class WorkSheetProvider extends GetxController {
 
   Color getEventColor(String kind) {
     if (kind == WORK_SHEET_KIND_START) {
-      return Colors.green;
+      return Colors.blueAccent;
     } else if (kind == WORK_SHEET_KIND_END) {
-      return Colors.red;
+      return Colors.redAccent;
     } else if (kind == WORK_SHEET_KIND_REST) {
-      return Colors.blue;
+      return Colors.blueGrey;
     } else {
       return Colors.grey;
     }
@@ -141,7 +163,7 @@ class WorkSheetProvider extends GetxController {
     try {
       await workSheetHalper.breakTimeRecords(refreshTime.value);
       await onFetchCalenderData();
-      refreshTime.value = 0;
+      refreshTime.value = 60;
     } catch (e) {
       log('error: $e');
       Get.defaultDialog(

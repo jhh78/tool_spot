@@ -6,6 +6,7 @@ import 'package:life_secretary/db/work_sheet.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/work_sheet.dart';
 import 'package:life_secretary/util/constants.dart';
+import 'package:life_secretary/widget/work_sheet/break_time_input_form.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   BottomNavigationBarWidget({super.key});
@@ -61,43 +62,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           } else if (index == 1) {
             workSheetProvider.endWork();
           } else if (index == 2) {
-            Get.defaultDialog(
-              title: 'workRefreshTimeSetting'.tr,
-              content: Obx(
-                () => Column(
-                  children: [
-                    DropdownMenu(
-                      dropdownMenuEntries: List.generate(16, (index) {
-                        final minutes = (index + 1) * 30;
-                        final hours = minutes ~/ 60;
-                        final remainingMinutes = minutes % 60;
-                        final label = hours > 0 ? '$hours:$remainingMinutes' : '$remainingMinutes';
-                        return DropdownMenuEntry(
-                          label: label,
-                          value: minutes,
-                        );
-                      }),
-                      onSelected: (value) {
-                        log('>>>>>>>>>>>>>>>>>>>> value: $value');
-                        if (value == null) {
-                          return;
-                        }
-
-                        workSheetProvider.refreshTime.value = value;
-                      },
-                    ),
-                    if (workSheetProvider.refreshTime.value > 0)
-                      ElevatedButton(
-                        onPressed: () {
-                          workSheetProvider.breakTime();
-                          Get.back();
-                        },
-                        child: Text('workRefresh'.tr),
-                      ),
-                  ],
-                ),
-              ),
-            );
+            Get.defaultDialog(title: 'workRefreshTimeSetting'.tr, content: BreakTimeInputForm());
           } else if (index == 3) {
             log('>>>>>>>>>>>>>>>>>>>> 통계');
           }

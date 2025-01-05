@@ -52,6 +52,7 @@ class DatabaseHelper {
 
       await db.execute('''
         CREATE TABLE IF NOT EXISTS break_time(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           work_sheet_id INTEGER,
           start_time datetime,
           end_time datetime,

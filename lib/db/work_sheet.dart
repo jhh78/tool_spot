@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:life_secretary/db/helper.dart';
+import 'package:life_secretary/model/break_time.dart';
 import 'package:life_secretary/model/work_sheet.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,13 +31,11 @@ class WorkSheetHalper {
         throw Exception('duplicate');
       }
 
-      await db.insert(
-          tableName,
-          WorkSheetModel(
-            date: currentTime,
-            ymd: ymd,
-            start_time: currentTime,
-          ).toMap());
+      await db.insert(tableName, {
+        'date': currentTime,
+        'ymd': ymd,
+        'start_time': currentTime,
+      });
     } catch (e) {
       rethrow;
     }
@@ -67,18 +66,22 @@ class WorkSheetHalper {
       whereArgs: [firstDayOfPreviousMonthStr, firstDayOfNextMonthStr],
     );
 
-    // TODO ::: 휴식 시간을 가져오기 위한 쿼리 실행
-
-    final List<Map<String, dynamic>> refresh = await db.query(
-      breakTimeTableName,
-      where: 'start_time BETWEEN ? AND ?',
-      whereArgs: [firstDayOfPreviousMonthStr, firstDayOfNextMonthStr],
-    );
-
     final List<Map<String, WorkSheetModel>> list = [];
 
     for (Map<String, dynamic> item in result) {
-      list.add({item['ymd']: WorkSheetModel.fromMap(item)});
+      final List<Map<String, dynamic>> refresh = await db.query(
+        breakTimeTableName,
+        where: 'work_sheet_id = ?',
+        whereArgs: [item['id']],
+      );
+
+      final WorkSheetModel workSheetModel = WorkSheetModel.fromMap(item);
+
+      if (refresh.isNotEmpty) {
+        workSheetModel.breakTime = refresh.map((e) => BreakTimeModel.fromMap(e)).toList();
+      }
+
+      list.add({item['ymd']: workSheetModel});
     }
 
     return list;
@@ -108,13 +111,9 @@ class WorkSheetHalper {
 
         await db.update(
           tableName,
-          WorkSheetModel(
-            id: workSheetModel.id,
-            date: workSheetModel.date,
-            ymd: workSheetModel.ymd,
-            start_time: workSheetModel.start_time,
-            end_time: currentTime,
-          ).toMap(),
+          {
+            'end_time': currentTime,
+          },
           where: 'id = ?',
           whereArgs: [workSheetModel.id],
         );
@@ -162,8 +161,8 @@ class WorkSheetHalper {
     }
   }
 
-  Future<int> delete(int id) async {
+  Future<int> deleteBreakTimeItem(String id) async {
     Database db = await database;
-    return await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
+    return await db.delete(breakTimeTableName, where: 'id = ?', whereArgs: [id]);
   }
 }

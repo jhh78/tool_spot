@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/model/work_sheet.dart';
@@ -10,6 +8,7 @@ import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/table_calender.dart';
 import 'package:life_secretary/widget/work_sheet/bottom_navigation_bar.dart';
+import 'package:life_secretary/widget/work_sheet/modify_form.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class WorkSheetScreen extends StatelessWidget {
@@ -27,7 +26,7 @@ class WorkSheetScreen extends StatelessWidget {
     } else if (kind == WORK_SHEET_KIND_END) {
       title = 'workEnd'.tr;
     } else if (kind == WORK_SHEET_KIND_REST) {
-      title = 'breakTime'.tr;
+      title = 'workRefresh'.tr;
     }
 
     return '$title $time';
@@ -43,11 +42,25 @@ class WorkSheetScreen extends StatelessWidget {
     return ListView.builder(
       itemCount: workSheetProvider.filteredData.length,
       itemBuilder: (BuildContext context, int index) {
+        final headText = getTitleText(workSheetProvider.filteredData[index]);
+        final themeColor = workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind);
+
+        if (workSheetProvider.filteredData[index].kind == WORK_SHEET_KIND_REST) {
+          return ListTile(
+            title: Text(
+              '$headText ~ ${workSheetProvider.filteredData[index].end_time}',
+              style: TextStyle(
+                color: themeColor,
+              ),
+            ),
+          );
+        }
+
         return ListTile(
           title: Text(
-            getTitleText(workSheetProvider.filteredData[index]),
+            headText,
             style: TextStyle(
-              color: workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind),
+              color: themeColor,
             ),
           ),
         );
@@ -125,7 +138,10 @@ class WorkSheetScreen extends StatelessWidget {
                         ),
                         IconButton(
                             onPressed: () {
-                              log('>>>>>>>>>>>>>>>>>>>> Edit button pressed');
+                              Get.defaultDialog(
+                                title: 'workTimeDetail'.tr,
+                                content: const WorkSheetModifyForm(),
+                              );
                             },
                             icon: const Icon(Icons.edit_calendar_outlined))
                       ],
