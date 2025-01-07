@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TableCalenderWidget extends StatelessWidget {
@@ -38,6 +39,11 @@ class TableCalenderWidget extends StatelessWidget {
       },
       eventLoader: eventLoader,
       onDaySelected: onDaySelected,
+      daysOfWeekStyle: DaysOfWeekStyle(
+        weekdayStyle: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+        weekendStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        dowTextFormatter: (date, locale) => DateFormat.E(locale).format(date)[0], // 요일의 첫 글자만 표시
+      ),
     );
   }
 }

@@ -56,11 +56,11 @@ class BottomNavigationBarWidget extends StatelessWidget {
             label: 'workGraph'.tr,
           ),
         ],
-        onTap: (index) {
+        onTap: (index) async {
           if (index == 0) {
-            workSheetProvider.startWork();
+            await workSheetProvider.startWork();
           } else if (index == 1) {
-            workSheetProvider.endWork();
+            await workSheetProvider.endWork();
           } else if (index == 2) {
             Get.defaultDialog(title: 'workRefreshTimeSetting'.tr, content: BreakTimeInputForm());
           } else if (index == 3) {

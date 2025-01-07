@@ -12,8 +12,8 @@ import 'package:life_secretary/util/util.dart';
 class WorkSheetProvider extends GetxController {
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final WorkSheetHalper workSheetHalper = WorkSheetHalper();
-  final Map<String, List<WorkSheetViewModel>> events = <String, List<WorkSheetViewModel>>{};
 
+  RxMap<String, List<WorkSheetViewModel>> events = <String, List<WorkSheetViewModel>>{}.obs;
   RxList<WorkSheetViewModel> filteredData = <WorkSheetViewModel>[].obs;
   RxInt refreshTime = 60.obs;
   Rx<DateTime> selectedDay = DateTime.now().obs;
@@ -42,7 +42,6 @@ class WorkSheetProvider extends GetxController {
   Future<void> onFetchCalenderData() async {
     final List<Map<String, WorkSheetModel>> list = await workSheetHalper.getList(focusedDay.value);
 
-    events.clear();
     for (Map<String, WorkSheetModel> item in list) {
       if (!events.containsKey(item.keys.first)) {
         events[item.keys.first] = [];
@@ -83,6 +82,16 @@ class WorkSheetProvider extends GetxController {
         }
       }
 
+      // 중복 제거
+      final Map<String, WorkSheetViewModel> uniqueEvents = {};
+      for (var event in events[item.keys.first]!) {
+        if (event.kind == WORK_SHEET_KIND_REST) {
+          uniqueEvents[event.start_time.toString()] = event;
+        } else {
+          uniqueEvents[event.kind] = event;
+        }
+      }
+      events[item.keys.first] = uniqueEvents.values.toList();
       events[item.keys.first]!.sort((a, b) => a.sortTime.compareTo(b.sortTime));
     }
 
@@ -105,7 +114,7 @@ class WorkSheetProvider extends GetxController {
   Future<void> endWork() async {
     try {
       await workSheetHalper.update();
-      await onFetchCalenderData();
+      onFetchCalenderData();
     } catch (e) {
       log('error: $e');
       Get.defaultDialog(
@@ -132,6 +141,7 @@ class WorkSheetProvider extends GetxController {
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     final String ymd = convertLocaleDateFormat(selectedDay);
     this.selectedDay.value = selectedDay;
+    this.focusedDay.value = focusedDay;
     final fData = events.entries.firstWhere((element) => element.key == ymd, orElse: () => MapEntry(ymd, [])).value;
 
     filteredData.clear();
@@ -144,6 +154,7 @@ class WorkSheetProvider extends GetxController {
     }
 
     final String ymd = convertLocaleDateFormat(day);
+    log('>>>>>>>>>>>>>>>>>>>> ymd: $ymd events[ymd]: ${events[ymd]}');
     return events[ymd] ?? [];
   }
 
@@ -177,6 +188,6 @@ class WorkSheetProvider extends GetxController {
   }
 
   bool isToday() {
-    return convertLocaleDateFormat(focusedDay.value) == convertLocaleDateFormat(selectedDay.value);
+    return convertLocaleDateFormat(DateTime.now()) == convertLocaleDateFormat(focusedDay.value);
   }
 }

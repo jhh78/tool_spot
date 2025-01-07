@@ -52,7 +52,7 @@ class TranslateText extends Translations {
           'workTotal': '총시간',
           'workTimeUpdateFail': '출근시간이 없거나\n퇴근시간이 존재합니다',
           'workTimeDetail': '시간변경',
-          'workTimeUpdateFormUpdate': '수정하기',
+          'workTimeUpdateFormUpdate': '근무시간 수정하기',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -107,7 +107,7 @@ class TranslateText extends Translations {
           'workTotal': '合計',
           'workTimeUpdateFail': '出勤時間がないか\n退勤時間が存在します',
           'workTimeDetail': '時間変更',
-          'workTimeUpdateFormUpdate': '修正する',
+          'workTimeUpdateFormUpdate': '勤務時間変更',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -162,7 +162,7 @@ class TranslateText extends Translations {
           'workTotal': 'total',
           'workTimeUpdateFail': 'There is no start time\nor there is an end time',
           'workTimeDetail': 'time detail',
-          'workTimeUpdateFormUpdate': 'update',
+          'workTimeUpdateFormUpdate': 'work time update',
         },
       };
 }

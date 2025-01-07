@@ -147,6 +147,10 @@ class WorkSheetHalper {
         throw Exception('duplicate');
       }
 
+      if (workSheet.first['end_time'] != null) {
+        throw Exception('The entered quitting time exists.');
+      }
+
       await db.insert(
         breakTimeTableName,
         {

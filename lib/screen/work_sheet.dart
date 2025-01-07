@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:life_secretary/model/work_sheet.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
@@ -9,6 +10,7 @@ import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/table_calender.dart';
 import 'package:life_secretary/widget/work_sheet/bottom_navigation_bar.dart';
 import 'package:life_secretary/widget/work_sheet/modify_form.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class WorkSheetScreen extends StatelessWidget {
@@ -138,10 +140,7 @@ class WorkSheetScreen extends StatelessWidget {
                         ),
                         IconButton(
                             onPressed: () {
-                              Get.defaultDialog(
-                                title: 'workTimeDetail'.tr,
-                                content: const WorkSheetModifyForm(),
-                              );
+                              Get.to(() => const WorkSheetModifyForm());
                             },
                             icon: const Icon(Icons.edit_calendar_outlined))
                       ],

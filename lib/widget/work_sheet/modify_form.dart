@@ -17,6 +17,9 @@ class WorkSheetModifyForm extends StatefulWidget {
 
 class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
   final WorkSheetProvider workSheetProvider = Get.put(WorkSheetProvider());
+  final List<int> timeList = List.generate(23, (index) => index + 1);
+  final List<int> minuteList = List.generate(60, (index) => index);
+  final List<String> kindList = <String>['workStart'.tr, 'workEnd'.tr, 'workRefresh'.tr];
   List<WorkSheetViewModel> workSheetList = <WorkSheetViewModel>[];
 
   @override
@@ -35,31 +38,37 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
     });
   }
 
-  DropdownButton renderDropDownMenu(int range) {
-    return DropdownButton<int>(
-      value: 9,
-      items: List.generate(range, (index) {
-        return DropdownMenuItem<int>(
-          value: index + 1,
-          child: Text((index + 1).toString()),
+  DropdownMenu<int> renderDropDownMenu<T>(List<T> list) {
+    return DropdownMenu(
+      menuHeight: 200,
+      width: 100,
+      textAlign: TextAlign.center,
+      initialSelection: 9,
+      dropdownMenuEntries: List.generate(list.length, (index) {
+        return DropdownMenuEntry(
+          label: list[index].toString(),
+          value: index,
         );
       }),
-      onChanged: (value) {
+      onSelected: (value) {
         log('>>>>>>>>>>>>>>>>>>>> value: $value');
         // workSheetProvider.breakTimeValue.value = value!;
       },
     );
   }
 
-  Padding renderFormItems(WorkSheetViewModel item) {
+  Widget renderFormItems(BuildContext context, WorkSheetViewModel item) {
     if (item.kind == WORK_SHEET_KIND_REST) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 24, right: 24),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('workRefresh'.tr),
+            Text(
+              'workRefresh'.tr,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             Row(
               children: [
                 DropdownMenu(
@@ -98,19 +107,26 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 24, right: MediaQuery.of(context).size.width * 0.175),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          item.kind == WORK_SHEET_KIND_START ? Text('workStart'.tr) : Text('workEnd'.tr),
+          item.kind == WORK_SHEET_KIND_START
+              ? Text(
+                  'workStart'.tr,
+                  style: Theme.of(context).textTheme.titleMedium,
+                )
+              : Text(
+                  'workEnd'.tr,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
           Row(
             children: [
               SizedBox(width: MediaQuery.of(context).size.width * 0.135),
-              renderDropDownMenu(23),
-              const Text('H'),
+              renderDropDownMenu<int>(timeList),
               const SizedBox(width: 10),
-              renderDropDownMenu(59),
-              const Text('M'),
+              renderDropDownMenu<int>(minuteList),
             ],
           ),
         ],
@@ -120,31 +136,95 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Column(
-          children: workSheetList.map((item) {
-            return renderFormItems(item);
-          }).toList(),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                log('>>>>>>>>>>>>>>>>>>>> update button');
-              },
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('workTimeUpdateFormUpdate'.tr),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Get.bottomSheet(
+                      Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        height: 250,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text('workRefreshTimeSetting'.tr),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  renderDropDownMenu<String>(kindList),
+                                  renderDropDownMenu<int>(timeList),
+                                  const SizedBox(width: 10),
+                                  renderDropDownMenu<int>(minuteList),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(12.0),
+                              margin: const EdgeInsets.all(16.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                              ),
+                              child: Text("workTimeUpdateFormUpdate".tr),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.add_circle_outline,
+                    size: ICON_SIZE,
+                  ),
                 ),
-                child: Text("workTimeUpdateFormUpdate".tr),
-              ),
+              ],
             ),
-          ],
-        ),
-      ],
+          ),
+          Column(
+            children: workSheetList.map((item) {
+              return renderFormItems(context, item);
+            }).toList(),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: () {
+              log('>>>>>>>>>>>>>>>>>>>> update button');
+            },
+            child: Container(
+              padding: const EdgeInsets.all(12.0),
+              margin: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+              ),
+              child: Text("workTimeUpdateFormUpdate".tr),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
