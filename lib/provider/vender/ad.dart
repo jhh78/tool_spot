@@ -23,27 +23,21 @@ class ADManager extends GetxService {
     });
   }
 
-  // TODO ::: 베포 완료후 광고 ID 변경
   String getRewardADUnit() {
     if (Platform.isAndroid) {
-      return "ca-app-pub-3940256099942544/5224354917";
-      // return kReleaseMode ? "ca-app-pub-9674517651101637/7414309401" : "ca-app-pub-3940256099942544/5224354917";
+      return kReleaseMode ? "ca-app-pub-9674517651101637/7414309401" : "ca-app-pub-3940256099942544/5224354917";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-3940256099942544/1712485313";
-      // return kReleaseMode ? "ca-app-pub-9674517651101637/1365003850" : "ca-app-pub-3940256099942544/1712485313";
+      return kReleaseMode ? "ca-app-pub-9674517651101637/1365003850" : "ca-app-pub-3940256099942544/1712485313";
     }
 
     throw Exception("Unsupported platform");
   }
 
-  // TODO ::: 베포 완료후 광고 ID 변경
   String getBannerADUnit() {
     if (Platform.isAndroid) {
-      return "ca-app-pub-3940256099942544/6300978111";
-      // return kReleaseMode ? "ca-app-pub-9674517651101637/5331071548" : "ca-app-pub-3940256099942544/6300978111";
+      return kReleaseMode ? "ca-app-pub-9674517651101637/5331071548" : "ca-app-pub-3940256099942544/6300978111";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-3940256099942544/2934735716";
-      // return kReleaseMode ? "ca-app-pub-9674517651101637/9051922188" : "ca-app-pub-3940256099942544/2934735716";
+      return kReleaseMode ? "ca-app-pub-9674517651101637/9051922188" : "ca-app-pub-3940256099942544/2934735716";
     }
 
     throw Exception("Unsupported platform");
