@@ -18,3 +18,5 @@ const String TIME_FORMAT = 'HH:mm:ss';
 const String WORK_SHEET_KIND_START = 'start';
 const String WORK_SHEET_KIND_END = 'end';
 const String WORK_SHEET_KIND_REST = 'rest';
+
+const double DROPDOWN_MENU_ITEM_HEIGHT = 200;

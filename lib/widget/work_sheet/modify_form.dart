@@ -3,31 +3,56 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/model/work_sheet.dart';
+import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/work_sheet.dart';
 import 'package:life_secretary/util/constants.dart';
 
-class WorkSheetModifyForm extends StatefulWidget {
-  const WorkSheetModifyForm({
+class WorkSheetModifyScreen extends StatefulWidget {
+  const WorkSheetModifyScreen({
     super.key,
+    required this.changeScreen,
   });
 
+  final Function(int index) changeScreen;
+
   @override
-  State<WorkSheetModifyForm> createState() => WorkSheetModifyFormState();
+  State<WorkSheetModifyScreen> createState() => WorkSheetModifyScreenState();
 }
 
-class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
+class WorkSheetModifyScreenState extends State<WorkSheetModifyScreen> {
+  final RouterProvider routerProvider = Get.put(RouterProvider());
   final WorkSheetProvider workSheetProvider = Get.put(WorkSheetProvider());
   final List<int> timeList = List.generate(23, (index) => index + 1);
   final List<int> minuteList = List.generate(60, (index) => index);
   final List<String> kindList = <String>['workStart'.tr, 'workEnd'.tr, 'workRefresh'.tr];
   List<WorkSheetViewModel> workSheetList = <WorkSheetViewModel>[];
+  Map<String, dynamic> newWorkData = <String, dynamic>{
+    'kind': '',
+    'h': '',
+    'm': '',
+  };
 
   @override
   void initState() {
     super.initState();
+    routerProvider.workSheetModifyFocusNode.addListener(_onFocusChange);
     for (final item in workSheetProvider.filteredData) {
       item.uuid = UniqueKey().toString();
       workSheetList.add(item);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.changeScreen(0);
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (routerProvider.workSheetModifyFocusNode.hasFocus) {
+      log('>>>>>>>>>>>>>>>>>>>> AddressTranslate screen has focus');
+    } else {
+      log('>>>>>>>>>>>>>>>>>>>> AddressTranslate screen has no focus');
     }
   }
 
@@ -38,12 +63,13 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
     });
   }
 
-  DropdownMenu<int> renderDropDownMenu<T>(List<T> list) {
+  DropdownMenu<int> renderDropDownMenu<T>({required List<T> list, int? initialSelection, String? helperText}) {
     return DropdownMenu(
-      menuHeight: 200,
+      menuHeight: DROPDOWN_MENU_ITEM_HEIGHT,
       width: 100,
+      initialSelection: initialSelection,
+      helperText: helperText,
       textAlign: TextAlign.center,
-      initialSelection: 9,
       dropdownMenuEntries: List.generate(list.length, (index) {
         return DropdownMenuEntry(
           label: list[index].toString(),
@@ -72,7 +98,7 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
             Row(
               children: [
                 DropdownMenu(
-                  menuHeight: 200,
+                  menuHeight: DROPDOWN_MENU_ITEM_HEIGHT,
                   initialSelection: item.value,
                   dropdownMenuEntries: List.generate(16, (index) {
                     final minutes = (index + 1) * 30;
@@ -106,6 +132,9 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
       );
     }
 
+    final h = DateTime.parse(item.sortTime.toString()).toLocal().hour - 1;
+    final m = DateTime.parse(item.sortTime.toString()).toLocal().minute;
+
     return Padding(
       padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 24, right: MediaQuery.of(context).size.width * 0.175),
       child: Row(
@@ -124,9 +153,9 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
           Row(
             children: [
               SizedBox(width: MediaQuery.of(context).size.width * 0.135),
-              renderDropDownMenu<int>(timeList),
+              renderDropDownMenu<int>(list: timeList, initialSelection: h),
               const SizedBox(width: 10),
-              renderDropDownMenu<int>(minuteList),
+              renderDropDownMenu<int>(list: minuteList, initialSelection: m),
             ],
           ),
         ],
@@ -146,8 +175,19 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "9999-99-99",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      )
+                    ],
+                  ),
+                ),
                 IconButton(
                   onPressed: () {
                     Get.bottomSheet(
@@ -160,22 +200,26 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
                             topRight: Radius.circular(20),
                           ),
                         ),
-                        height: 250,
+                        height: 300,
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Text('workRefreshTimeSetting'.tr),
+                              child: Text(
+                                'workTimeAddNewItem'.tr,
+                                style: Theme.of(context).textTheme.headlineSmall,
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  renderDropDownMenu<String>(kindList),
-                                  renderDropDownMenu<int>(timeList),
+                                  renderDropDownMenu<String>(list: kindList, helperText: 'workTimeAddNewItemKind'.tr),
                                   const SizedBox(width: 10),
-                                  renderDropDownMenu<int>(minuteList),
+                                  renderDropDownMenu<int>(list: timeList, helperText: 'workTimeAddNewItemHour'.tr),
+                                  const SizedBox(width: 10),
+                                  renderDropDownMenu<int>(list: minuteList, helperText: 'workTimeAddNewItemMinute'.tr),
                                 ],
                               ),
                             ),
@@ -205,11 +249,6 @@ class WorkSheetModifyFormState extends State<WorkSheetModifyForm> {
               return renderFormItems(context, item);
             }).toList(),
           ),
-        ],
-      ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
           InkWell(
             onTap: () {
               log('>>>>>>>>>>>>>>>>>>>> update button');

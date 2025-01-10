@@ -40,8 +40,8 @@ class TableCalenderWidget extends StatelessWidget {
       eventLoader: eventLoader,
       onDaySelected: onDaySelected,
       daysOfWeekStyle: DaysOfWeekStyle(
-        weekdayStyle: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-        weekendStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        weekdayStyle: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+        weekendStyle: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
         dowTextFormatter: (date, locale) => DateFormat.E(locale).format(date)[0], // 요일의 첫 글자만 표시
       ),
     );

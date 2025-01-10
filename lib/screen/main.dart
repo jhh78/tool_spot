@@ -104,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
                       MenuScreen(),
                       const QrReaderScreen(),
                       const AddressTranslate(),
-                      WorkSheetScreen(),
+                      const WorkSheetScreen(),
                     ],
                   ),
                 ),

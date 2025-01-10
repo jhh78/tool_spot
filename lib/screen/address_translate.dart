@@ -82,9 +82,7 @@ class _AddressTranslateState extends State<AddressTranslate> {
         content: ActionButtonWidget(
           onPressed: () async {
             Get.back();
-            // TODO ::: 애플 심사 통과하면 주석해제
-            // adManager.loadRewardAd();
-            systemProvider.incrementPoint(ADDRESS_TRANSLATE_INCREMENT_POINT);
+            adManager.loadRewardAd();
           },
           middleText: 'showAdDescription'.tr,
           buttonText: 'showAd'.tr,
