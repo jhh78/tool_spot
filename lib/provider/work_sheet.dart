@@ -35,6 +35,7 @@ class WorkSheetProvider extends GetxController {
 
   void _onFocusChange() async {
     if (routerProvider.workSheetFocusNode.hasFocus) {
+      log('\t\t\t\t\t\t\t\t\t\t WorkSheet screen has focus');
       await onFetchCalenderData();
     }
   }
@@ -154,7 +155,6 @@ class WorkSheetProvider extends GetxController {
     }
 
     final String ymd = convertLocaleDateFormat(day);
-    log('>>>>>>>>>>>>>>>>>>>> ymd: $ymd events[ymd]: ${events[ymd]}');
     return events[ymd] ?? [];
   }
 

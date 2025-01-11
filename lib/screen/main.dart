@@ -12,6 +12,7 @@ import 'package:life_secretary/screen/work_sheet.dart';
 import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/widget/menu.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
+import 'package:life_secretary/widget/work_sheet/modify_form.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -24,7 +25,15 @@ class _MainScreenState extends State<MainScreen> {
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final SystemProvider systemProvider = Get.put(SystemProvider());
   final ADManager adManager = Get.put(ADManager());
+
   bool isReady = false;
+  final Map<String, Widget Function()> pages = {
+    ROUTER_HOME: () => MenuScreen(),
+    ROUTER_QRREADER: () => const QrReaderScreen(),
+    ROUTER_ADDRESSTRANSLATE: () => const AddressTranslate(),
+    ROUTER_WORKSHEET: () => const WorkSheetScreen(),
+    ROUTER_WORKSHEET_MODIFY: () => const WorkSheetModifyScreen(),
+  };
 
   @override
   void initState() {
@@ -41,40 +50,55 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onFocusChange() {
     if (routerProvider.homeFocusNode.hasFocus) {
-      log('>>>>>>>>>>>>>>>>>>>> MainScreen screen has focus');
+      log('\t\t\t\t\t\t\t\t\t\t MainScreen screen has focus');
     }
   }
 
   Widget _renderAppBarTitle() {
-    switch (routerProvider.screenIndex.value) {
-      case 0:
-        return Text("mainHomeTitle".tr);
-      case 1:
-        return Text("qrReaderTitle".tr);
-      case 2:
-        return Text("addressTranslate".tr);
-      case 3:
-        return Text("timeSheet".tr);
-      default:
-        return Text("mainHomeTitle".tr);
+    if (routerProvider.currentScreen.value == ROUTER_HOME) {
+      return Text("mainHomeTitle".tr);
+    } else if (routerProvider.currentScreen.value == ROUTER_QRREADER) {
+      return Text("qrReaderTitle".tr);
+    } else if (routerProvider.currentScreen.value == ROUTER_ADDRESSTRANSLATE) {
+      return Text("addressTranslate".tr);
+    } else if (routerProvider.currentScreen.value == ROUTER_WORKSHEET) {
+      return Text("timeSheet".tr);
     }
+
+    return Text("mainHomeTitle".tr);
   }
 
   Widget? _renderLeadingWidget(BuildContext context) {
-    if (routerProvider.screenIndex.value != 0) {
-      return IconButton(
-        onPressed: () {
-          routerProvider.moveHome(context);
-        },
-        icon: Icon(
-          Icons.home_outlined,
-          size: ICON_SIZE,
-          color: systemProvider.getSystemThemeColor(),
+    if (routerProvider.currentScreen.value == ROUTER_HOME) {
+      return const SizedBox.shrink();
+    }
+
+    if (routerProvider.currentScreen.value == ROUTER_WORKSHEET_MODIFY) {
+      return Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: IconButton(
+          onPressed: () {
+            routerProvider.changeScreen(context, ROUTER_WORKSHEET);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: ICON_SIZE,
+            color: systemProvider.getSystemThemeColor(),
+          ),
         ),
       );
     }
 
-    return null;
+    return IconButton(
+      onPressed: () {
+        routerProvider.changeScreen(context, ROUTER_HOME);
+      },
+      icon: Icon(
+        Icons.home_outlined,
+        size: ICON_SIZE,
+        color: systemProvider.getSystemThemeColor(),
+      ),
+    );
   }
 
   @override
@@ -94,23 +118,23 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Stack(
         children: [
-          Column(
-            children: [
-              Expanded(
-                child: Obx(
-                  () => IndexedStack(
-                    index: routerProvider.screenIndex.value,
-                    children: [
-                      MenuScreen(),
-                      const QrReaderScreen(),
-                      const AddressTranslate(),
-                      const WorkSheetScreen(),
-                    ],
+          Obx(() {
+            return Stack(
+              children: pages.entries.map((entry) {
+                return Offstage(
+                  offstage: routerProvider.currentScreen.value != entry.key,
+                  child: Navigator(
+                    key: PageStorageKey<String>('Navigator${entry.key}'),
+                    onGenerateRoute: (settings) {
+                      return MaterialPageRoute(
+                        builder: (context) => entry.value(),
+                      );
+                    },
                   ),
-                ),
-              ),
-            ],
-          ),
+                );
+              }).toList(),
+            );
+          }),
           Obx(() {
             if (adManager.isAdReady.value) {
               return Container(

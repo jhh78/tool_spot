@@ -8,12 +8,7 @@ import 'package:life_secretary/provider/work_sheet.dart';
 import 'package:life_secretary/util/constants.dart';
 
 class WorkSheetModifyScreen extends StatefulWidget {
-  const WorkSheetModifyScreen({
-    super.key,
-    required this.changeScreen,
-  });
-
-  final Function(int index) changeScreen;
+  const WorkSheetModifyScreen({super.key});
 
   @override
   State<WorkSheetModifyScreen> createState() => WorkSheetModifyScreenState();
@@ -36,23 +31,22 @@ class WorkSheetModifyScreenState extends State<WorkSheetModifyScreen> {
   void initState() {
     super.initState();
     routerProvider.workSheetModifyFocusNode.addListener(_onFocusChange);
-    for (final item in workSheetProvider.filteredData) {
-      item.uuid = UniqueKey().toString();
-      workSheetList.add(item);
-    }
   }
 
   @override
   void dispose() {
-    widget.changeScreen(0);
+    routerProvider.workSheetModifyFocusNode.removeListener(_onFocusChange);
+    routerProvider.workSheetModifyFocusNode.dispose();
     super.dispose();
   }
 
   void _onFocusChange() {
     if (routerProvider.workSheetModifyFocusNode.hasFocus) {
-      log('>>>>>>>>>>>>>>>>>>>> AddressTranslate screen has focus');
-    } else {
-      log('>>>>>>>>>>>>>>>>>>>> AddressTranslate screen has no focus');
+      log('\t\t\t\t\t\t\t\t\t\t WorkSheet Modify screen has focus');
+      for (final item in workSheetProvider.filteredData) {
+        item.uuid = UniqueKey().toString();
+        workSheetList.add(item);
+      }
     }
   }
 

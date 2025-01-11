@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
+import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/menu_card.dart';
 
@@ -19,17 +20,17 @@ class MenuScreen extends StatelessWidget {
       MenuCard(
         descript: 'qrReaderTitle'.tr,
         icon: Icons.qr_code_rounded,
-        callback: () => routerProvider.moveQRReader(context),
+        callback: () => routerProvider.changeScreen(context, ROUTER_QRREADER),
       ),
       MenuCard(
         descript: 'addressTranslate'.tr,
         icon: Icons.translate,
-        callback: () => routerProvider.moveAddressTranslate(context),
+        callback: () => routerProvider.changeScreen(context, ROUTER_ADDRESSTRANSLATE),
       ),
       MenuCard(
         descript: 'timeSheet'.tr,
         icon: Icons.schedule,
-        callback: () => routerProvider.moveWorkSheet(context),
+        callback: () => routerProvider.changeScreen(context, ROUTER_WORKSHEET),
       ),
     ];
     return Padding(

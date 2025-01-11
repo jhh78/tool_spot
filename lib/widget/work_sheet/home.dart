@@ -144,8 +144,7 @@ class _WorkSheetHomeScreenState extends State<WorkSheetHomeScreen> {
                         ),
                         IconButton(
                             onPressed: () {
-                              routerProvider.moveWorkSheetModify(context);
-                              widget.changeScreen(1);
+                              routerProvider.changeScreen(context, ROUTER_WORKSHEET_MODIFY);
                             },
                             icon: const Icon(Icons.edit_calendar_outlined))
                       ],

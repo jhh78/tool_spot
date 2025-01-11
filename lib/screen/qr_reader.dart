@@ -38,14 +38,13 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
   Future<void> dispose() async {
     routerProvider.qrReaderFocusNode.removeListener(_onFocusChange);
     routerProvider.qrReaderFocusNode.dispose();
-
     await controller.dispose();
     super.dispose();
   }
 
   void _onFocusChange() {
     if (routerProvider.qrReaderFocusNode.hasFocus) {
-      log('>>>>>>>>>>>>>>>>>>>> QrReader screen has focus');
+      log('\t\t\t\t\t\t\t\t\t\t QrReader screen has focus');
     }
   }
 

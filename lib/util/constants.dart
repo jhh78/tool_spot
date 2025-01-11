@@ -20,3 +20,9 @@ const String WORK_SHEET_KIND_END = 'end';
 const String WORK_SHEET_KIND_REST = 'rest';
 
 const double DROPDOWN_MENU_ITEM_HEIGHT = 200;
+
+const String ROUTER_HOME = 'menu';
+const String ROUTER_QRREADER = 'qrReader';
+const String ROUTER_ADDRESSTRANSLATE = 'addressTranslate';
+const String ROUTER_WORKSHEET = 'workSheet';
+const String ROUTER_WORKSHEET_MODIFY = 'workSheetModify';

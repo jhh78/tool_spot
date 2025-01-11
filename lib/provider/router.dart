@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:life_secretary/util/constants.dart';
 
 class RouterProvider extends GetxService {
   RxInt screenIndex = 0.obs;
+  RxString currentScreen = ROUTER_HOME.obs;
 
   final FocusNode homeFocusNode = FocusNode();
   final FocusNode addressTranslateFocusNode = FocusNode();
@@ -11,27 +15,20 @@ class RouterProvider extends GetxService {
   final FocusNode workSheetFocusNode = FocusNode();
   final FocusNode workSheetModifyFocusNode = FocusNode();
 
-  void moveHome(BuildContext context) {
-    screenIndex.value = 0;
-    FocusScope.of(context).requestFocus(homeFocusNode);
-  }
+  void changeScreen(BuildContext context, String screen) {
+    currentScreen.value = screen;
+    log('\t\t\t\t\t\t\t\t\t\t currentScreen: ${currentScreen.value}');
 
-  void moveQRReader(BuildContext context) {
-    screenIndex.value = 1;
-    FocusScope.of(context).requestFocus(qrReaderFocusNode);
-  }
-
-  void moveAddressTranslate(BuildContext context) {
-    screenIndex.value = 2;
-    FocusScope.of(context).requestFocus(addressTranslateFocusNode);
-  }
-
-  void moveWorkSheet(BuildContext context) {
-    screenIndex.value = 3;
-    FocusScope.of(context).requestFocus(workSheetFocusNode);
-  }
-
-  void moveWorkSheetModify(BuildContext context) {
-    FocusScope.of(context).requestFocus(workSheetModifyFocusNode);
+    if (screen == ROUTER_HOME) {
+      FocusScope.of(context).requestFocus(homeFocusNode);
+    } else if (screen == ROUTER_QRREADER) {
+      FocusScope.of(context).requestFocus(qrReaderFocusNode);
+    } else if (screen == ROUTER_ADDRESSTRANSLATE) {
+      FocusScope.of(context).requestFocus(addressTranslateFocusNode);
+    } else if (screen == ROUTER_WORKSHEET) {
+      FocusScope.of(context).requestFocus(workSheetFocusNode);
+    } else if (screen == ROUTER_WORKSHEET_MODIFY) {
+      FocusScope.of(context).requestFocus(workSheetModifyFocusNode);
+    }
   }
 }

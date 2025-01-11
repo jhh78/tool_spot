@@ -54,7 +54,7 @@ class _AddressTranslateState extends State<AddressTranslate> {
 
   void _onFocusChange() {
     if (routerProvider.addressTranslateFocusNode.hasFocus) {
-      log('>>>>>>>>>>>>>>>>>>>> AddressTranslate screen has focus');
+      log('\t\t\t\t\t\t\t\t\t\t AddressTranslate screen has focus');
       loadAddressConverter();
     }
   }
@@ -94,7 +94,6 @@ class _AddressTranslateState extends State<AddressTranslate> {
     _sendToOpenAI(context);
   }
 
-// asst_O9fBVFkYMvsuBKZcLJrqT7w8
   Future<void> _sendToOpenAI(BuildContext context) async {
     try {
       if (_addressController.text.isEmpty) {
