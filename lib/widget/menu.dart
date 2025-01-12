@@ -27,6 +27,9 @@ class MenuScreen extends StatelessWidget {
         icon: Icons.translate,
         callback: () => routerProvider.changeScreen(context, ROUTER_ADDRESSTRANSLATE),
       ),
+
+      // TODO: Add the following code to the MenuScreen widget
+      // QR작성기능
       MenuCard(
         descript: 'timeSheet'.tr,
         icon: Icons.schedule,

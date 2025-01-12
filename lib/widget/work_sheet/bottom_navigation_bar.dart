@@ -25,7 +25,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              size: ICON_SIZE,
+              size: ICON_SIZE_32,
               Icons.upload_outlined,
               color: systemProvider.getSystemThemeColor(),
             ),
@@ -33,7 +33,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              size: ICON_SIZE,
+              size: ICON_SIZE_32,
               Icons.download_outlined,
               color: systemProvider.getSystemThemeColor(),
             ),
@@ -41,7 +41,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              size: ICON_SIZE,
+              size: ICON_SIZE_32,
               Icons.local_cafe_outlined,
               color: systemProvider.getSystemThemeColor(),
             ),
@@ -49,7 +49,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              size: ICON_SIZE,
+              size: ICON_SIZE_32,
               Icons.auto_graph_outlined,
               color: systemProvider.getSystemThemeColor(),
             ),

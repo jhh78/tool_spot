@@ -6,12 +6,10 @@ class TranslateText extends Translations {
         'ko_KR': {
           // 공통으로 사용됨
           'mainHomeTitle': '메인 화면',
-          'language_ko': '한국어',
-          'language_en': '영어',
-          'language_ja': '일본어',
           'showAdDescription': '광고를 시청하면 포인트를 얻을 수 있습니다\n광고를 시청하시겠습니까?',
           'showAd': '광고보기',
           'copiedText': '복사되었습니다',
+          'dataNotFound': '데이터가 없습니다',
 
           // errors
           'error': '오류가 발생하였습니다',
@@ -42,6 +40,8 @@ class TranslateText extends Translations {
           'translateButton': '변환하기(-20pt)',
 
           // 근무표
+          'timeSheetUnitHour': '시간',
+          'timeSheetUnitMinute': '분',
           'timeSheet': '근무표',
           'workSummary': '근무내역',
           'workStart': '출근',
@@ -54,16 +54,17 @@ class TranslateText extends Translations {
           'workTimeDetail': '시간변경',
           'workTimeUpdateFormUpdate': '근무시간 수정하기',
           'workTimeAddNewItem': '시간추가',
+          'workTimeAddNewItemKind': '종류',
+          'workTimeAddNewItemHour': '시',
+          'workTimeAddNewItemMinute': '분',
         },
         'ja_JP': {
           // 공통으로 사용됨
           'mainHomeTitle': 'メイン画面',
-          'language_ko': '韓国語',
-          'language_en': '英語',
-          'language_ja': '日本語',
           'showAdDescription': '広告を見るとポイントを獲得できます。\n広告を見ますか？',
           'showAd': '広告を見る',
           'copiedText': 'コピーされました',
+          'dataNotFound': 'データがありません',
 
           // errors
           'error': 'エラーが発生しました',
@@ -98,6 +99,8 @@ class TranslateText extends Translations {
           'translateButton': '変換する（-20pt）',
 
           // 勤務表
+          'timeSheetUnitHour': '時間',
+          'timeSheetUnitMinute': '分',
           'timeSheet': '勤務表',
           'workSummary': '勤務履歴',
           'workStart': '出勤',
@@ -110,16 +113,17 @@ class TranslateText extends Translations {
           'workTimeDetail': '時間変更',
           'workTimeUpdateFormUpdate': '勤務時間変更',
           'workTimeAddNewItem': '時間追加',
+          'workTimeAddNewItemKind': '種類',
+          'workTimeAddNewItemHour': '時間',
+          'workTimeAddNewItemMinute': '分',
         },
         'en_US': {
           // 공통으로 사용됨
           'mainHomeTitle': 'Main Screen',
-          'language_ko': 'Korean',
-          'language_en': 'English',
-          'language_ja': 'Japanese',
           'showAdDescription': 'You can earn points by watching ads.\nWould you like to watch an ad?',
           'showAd': 'Watch Ad',
           'copiedText': 'Copied',
+          'dataNotFound': 'No data',
 
           // errors
           'error': 'An error occurred',
@@ -154,6 +158,8 @@ class TranslateText extends Translations {
           'translateButton': 'Translate(-20pt)',
 
           // time sheet
+          'timeSheetUnitHour': 'hour',
+          'timeSheetUnitMinute': 'minute',
           'timeSheet': 'time sheet',
           'workSummary': 'work summary',
           'workStart': 'work start',
@@ -166,6 +172,9 @@ class TranslateText extends Translations {
           'workTimeDetail': 'time detail',
           'workTimeUpdateFormUpdate': 'work time update',
           'workTimeAddNewItem': 'add time',
+          'workTimeAddNewItemKind': 'kind',
+          'workTimeAddNewItemHour': 'hour',
+          'workTimeAddNewItemMinute': 'minute',
         },
       };
 }

@@ -133,16 +133,16 @@ class _AddressTranslateState extends State<AddressTranslate> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16),
+            padding: const EdgeInsets.only(left: SPACE_SIZE_12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
                   Icons.payments_outlined,
-                  size: ICON_SIZE,
+                  size: ICON_SIZE_40,
                   color: Get.isDarkMode ? Colors.white70 : Colors.black87,
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: SPACE_SIZE_12),
                 Obx(() => Text(
                       '${convertLocaleNumberFormat(systemProvider.point.value)}P',
                       style: Theme.of(context).textTheme.headlineLarge,
@@ -156,7 +156,7 @@ class _AddressTranslateState extends State<AddressTranslate> {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(SPACE_SIZE_8),
                     child: TextField(
                       readOnly: isTranslating,
                       style: const TextStyle(

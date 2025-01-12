@@ -28,7 +28,7 @@ class SettingMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 12),
       child: PopupMenuButton<String>(
         onSelected: (value) {
           if (value == 'pointAdd') {
@@ -37,7 +37,7 @@ class SettingMenu extends StatelessWidget {
         },
         icon: const Icon(
           Icons.settings,
-          size: ICON_SIZE,
+          size: ICON_SIZE_32,
         ),
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(
@@ -48,13 +48,13 @@ class SettingMenu extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.light_mode_outlined,
-                    size: ICON_SIZE,
+                    size: ICON_SIZE_32,
                     color: systemProvider.getSystemThemeColor(),
                   ),
                   renderSwitchMenuItem(),
                   Icon(
                     Icons.dark_mode_outlined,
-                    size: ICON_SIZE,
+                    size: ICON_SIZE_32,
                     color: systemProvider.getSystemThemeColor(),
                   ),
                 ],
@@ -69,7 +69,7 @@ class SettingMenu extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.play_circle_outline_sharp,
-                    size: ICON_SIZE,
+                    size: ICON_SIZE_32,
                     color: systemProvider.getSystemThemeColor(),
                   ),
                   Text(

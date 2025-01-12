@@ -52,9 +52,9 @@ class WorkSheetViewModel {
 
   String? start_time;
   String? end_time;
-  int? value;
+  int value;
 
-  String? uuid;
+  String uuid;
 
   WorkSheetViewModel({
     required this.id,
@@ -64,6 +64,7 @@ class WorkSheetViewModel {
     required this.ymd,
     this.start_time,
     this.end_time,
-    this.value,
+    this.value = 0,
+    this.uuid = '',
   });
 }

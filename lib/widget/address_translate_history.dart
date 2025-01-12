@@ -14,6 +14,12 @@ class AddressTranslateHistoryWidget extends StatefulWidget {
 
 class _AddressTranslateHistoryWidgetState extends State<AddressTranslateHistoryWidget> {
   Widget renderListView() {
+    if (widget.list.isEmpty) {
+      return Center(
+        child: Text('dataNotFound'.tr),
+      );
+    }
+
     return ListView.builder(
       itemCount: widget.list.length,
       itemBuilder: (context, index) {
@@ -53,17 +59,11 @@ class _AddressTranslateHistoryWidgetState extends State<AddressTranslateHistoryW
     );
   }
 
-  Widget renderEmptyView() {
-    return const Center(
-      child: Text('No Data'),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: widget.list.isEmpty ? renderEmptyView() : renderListView(),
+      child: renderListView(),
     );
   }
 }

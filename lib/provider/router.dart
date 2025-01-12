@@ -31,4 +31,20 @@ class RouterProvider extends GetxService {
       FocusScope.of(context).requestFocus(workSheetModifyFocusNode);
     }
   }
+
+  String getAppBarTitle() {
+    if (currentScreen.value == ROUTER_HOME) {
+      return "mainHomeTitle".tr;
+    } else if (currentScreen.value == ROUTER_QRREADER) {
+      return "qrReaderTitle".tr;
+    } else if (currentScreen.value == ROUTER_ADDRESSTRANSLATE) {
+      return "addressTranslate".tr;
+    } else if (currentScreen.value == ROUTER_WORKSHEET) {
+      return "timeSheet".tr;
+    } else if (currentScreen.value == ROUTER_WORKSHEET_MODIFY) {
+      return "workSummary".tr;
+    }
+
+    return "---";
+  }
 }

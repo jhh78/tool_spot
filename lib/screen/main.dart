@@ -54,20 +54,6 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Widget _renderAppBarTitle() {
-    if (routerProvider.currentScreen.value == ROUTER_HOME) {
-      return Text("mainHomeTitle".tr);
-    } else if (routerProvider.currentScreen.value == ROUTER_QRREADER) {
-      return Text("qrReaderTitle".tr);
-    } else if (routerProvider.currentScreen.value == ROUTER_ADDRESSTRANSLATE) {
-      return Text("addressTranslate".tr);
-    } else if (routerProvider.currentScreen.value == ROUTER_WORKSHEET) {
-      return Text("timeSheet".tr);
-    }
-
-    return Text("mainHomeTitle".tr);
-  }
-
   Widget? _renderLeadingWidget(BuildContext context) {
     if (routerProvider.currentScreen.value == ROUTER_HOME) {
       return const SizedBox.shrink();
@@ -75,14 +61,14 @@ class _MainScreenState extends State<MainScreen> {
 
     if (routerProvider.currentScreen.value == ROUTER_WORKSHEET_MODIFY) {
       return Padding(
-        padding: const EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 12),
         child: IconButton(
           onPressed: () {
             routerProvider.changeScreen(context, ROUTER_WORKSHEET);
           },
           icon: Icon(
             Icons.arrow_back_ios,
-            size: ICON_SIZE,
+            size: ICON_SIZE_32,
             color: systemProvider.getSystemThemeColor(),
           ),
         ),
@@ -95,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
       },
       icon: Icon(
         Icons.home_outlined,
-        size: ICON_SIZE,
+        size: ICON_SIZE_32,
         color: systemProvider.getSystemThemeColor(),
       ),
     );
@@ -106,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Obx(
-          () => _renderAppBarTitle(),
+          () => Text(routerProvider.getAppBarTitle()),
         ),
         leading: Obx(
           () => _renderLeadingWidget(context) ?? const SizedBox.shrink(),

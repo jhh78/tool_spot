@@ -24,17 +24,14 @@ class _WorkSheetScreenState extends State<WorkSheetScreen> {
 
   String getTitleText(WorkSheetViewModel param) {
     final kind = param.kind;
-    final time = param.time;
-    String title = '';
-    if (kind == WORK_SHEET_KIND_START) {
-      title = 'workStart'.tr;
-    } else if (kind == WORK_SHEET_KIND_END) {
-      title = 'workEnd'.tr;
+
+    if (kind == WORK_SHEET_KIND_START || kind == WORK_SHEET_KIND_END) {
+      return 'workStart'.tr;
     } else if (kind == WORK_SHEET_KIND_REST) {
-      title = 'workRefresh'.tr;
+      return 'workRefresh'.tr;
     }
 
-    return '$title $time';
+    return 'AAA';
   }
 
   Widget renderBottomNavigation() {
@@ -48,7 +45,7 @@ class _WorkSheetScreenState extends State<WorkSheetScreen> {
   Widget renderItemList() {
     if (workSheetProvider.filteredData.isEmpty) {
       return Center(
-        child: Text('noData'.tr),
+        child: Text('dataNotFound'.tr),
       );
     }
 
@@ -58,23 +55,54 @@ class _WorkSheetScreenState extends State<WorkSheetScreen> {
         final headText = getTitleText(workSheetProvider.filteredData[index]);
         final themeColor = workSheetProvider.getEventColor(workSheetProvider.filteredData[index].kind);
 
-        if (workSheetProvider.filteredData[index].kind == WORK_SHEET_KIND_REST) {
-          return ListTile(
-            title: Text(
-              '$headText ~ ${workSheetProvider.filteredData[index].end_time}',
-              style: TextStyle(
-                color: themeColor,
+        return Container(
+          margin: const EdgeInsets.symmetric(vertical: SPACE_SIZE_4, horizontal: SPACE_SIZE_8),
+          padding: const EdgeInsets.all(SPACE_SIZE_8),
+          decoration: BoxDecoration(
+            color: themeColor.withAlpha(30),
+            border: Border.all(color: themeColor),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: themeColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.event,
+                      color: Colors.white,
+                      size: ICON_SIZE_12,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    headText,
+                    style: TextStyle(
+                      color: themeColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          );
-        }
-
-        return ListTile(
-          title: Text(
-            headText,
-            style: TextStyle(
-              color: themeColor,
-            ),
+              Text(
+                workSheetProvider.filteredData[index].kind == WORK_SHEET_KIND_REST
+                    ? '${workSheetProvider.filteredData[index].value / 60} ${'timeSheetUnitHour'.tr}'
+                    : convertLocaleTimeFormat(
+                        DateTime.parse('${workSheetProvider.filteredData[index].ymd} ${workSheetProvider.filteredData[index].time}')),
+                style: TextStyle(
+                  color: themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -106,9 +134,9 @@ class _WorkSheetScreenState extends State<WorkSheetScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              margin: const EdgeInsets.all(2),
-                              width: 5,
-                              height: 10,
+                              margin: const EdgeInsets.all(SPACE_SIZE_1),
+                              width: SPACE_SIZE_4,
+                              height: SPACE_SIZE_8,
                               decoration: BoxDecoration(
                                 color: workSheetProvider.getEventColor(events[index].kind),
                                 shape: BoxShape.rectangle,
@@ -142,10 +170,14 @@ class _WorkSheetScreenState extends State<WorkSheetScreen> {
                           ),
                         ),
                         IconButton(
-                            onPressed: () {
-                              routerProvider.changeScreen(context, ROUTER_WORKSHEET_MODIFY);
-                            },
-                            icon: const Icon(Icons.edit_calendar_outlined))
+                          onPressed: () {
+                            routerProvider.changeScreen(context, ROUTER_WORKSHEET_MODIFY);
+                          },
+                          icon: const Icon(
+                            Icons.edit_calendar_outlined,
+                            size: ICON_SIZE_28,
+                          ),
+                        )
                       ],
                     ),
                   ),
