@@ -12,9 +12,6 @@ class RouterProvider extends GetxService {
   final FocusNode addressTranslateFocusNode = FocusNode();
   final FocusNode qrReaderFocusNode = FocusNode();
 
-  final FocusNode workSheetFocusNode = FocusNode();
-  final FocusNode workSheetModifyFocusNode = FocusNode();
-
   void changeScreen(BuildContext context, String screen) {
     currentScreen.value = screen;
     log('\t\t\t\t\t\t\t\t\t\t currentScreen: ${currentScreen.value}');
@@ -25,10 +22,6 @@ class RouterProvider extends GetxService {
       FocusScope.of(context).requestFocus(qrReaderFocusNode);
     } else if (screen == ROUTER_ADDRESSTRANSLATE) {
       FocusScope.of(context).requestFocus(addressTranslateFocusNode);
-    } else if (screen == ROUTER_WORKSHEET) {
-      FocusScope.of(context).requestFocus(workSheetFocusNode);
-    } else if (screen == ROUTER_WORKSHEET_MODIFY) {
-      FocusScope.of(context).requestFocus(workSheetModifyFocusNode);
     }
   }
 
@@ -39,10 +32,6 @@ class RouterProvider extends GetxService {
       return "qrReaderTitle".tr;
     } else if (currentScreen.value == ROUTER_ADDRESSTRANSLATE) {
       return "addressTranslate".tr;
-    } else if (currentScreen.value == ROUTER_WORKSHEET) {
-      return "timeSheet".tr;
-    } else if (currentScreen.value == ROUTER_WORKSHEET_MODIFY) {
-      return "workSummary".tr;
     }
 
     return "---";

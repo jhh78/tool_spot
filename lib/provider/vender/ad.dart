@@ -94,10 +94,6 @@ class ADManager extends GetxService {
   }
 
   void loadBannerAd() {
-    if (kDebugMode) {
-      return;
-    }
-
     bannerAd.value = BannerAd(
       adUnitId: getBannerADUnit(),
       size: AdSize.banner,

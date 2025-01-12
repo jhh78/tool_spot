@@ -8,11 +8,9 @@ import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/screen/address_translate.dart';
-import 'package:life_secretary/screen/work_sheet.dart';
 import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/widget/menu.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
-import 'package:life_secretary/widget/work_sheet/modify_form.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -31,8 +29,6 @@ class _MainScreenState extends State<MainScreen> {
     ROUTER_HOME: () => MenuScreen(),
     ROUTER_QRREADER: () => const QrReaderScreen(),
     ROUTER_ADDRESSTRANSLATE: () => const AddressTranslate(),
-    ROUTER_WORKSHEET: () => const WorkSheetScreen(),
-    ROUTER_WORKSHEET_MODIFY: () => const WorkSheetModifyScreen(),
   };
 
   @override
@@ -57,22 +53,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget? _renderLeadingWidget(BuildContext context) {
     if (routerProvider.currentScreen.value == ROUTER_HOME) {
       return const SizedBox.shrink();
-    }
-
-    if (routerProvider.currentScreen.value == ROUTER_WORKSHEET_MODIFY) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 12),
-        child: IconButton(
-          onPressed: () {
-            routerProvider.changeScreen(context, ROUTER_WORKSHEET);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: ICON_SIZE_32,
-            color: systemProvider.getSystemThemeColor(),
-          ),
-        ),
-      );
     }
 
     return IconButton(

@@ -30,11 +30,6 @@ class MenuScreen extends StatelessWidget {
 
       // TODO: Add the following code to the MenuScreen widget
       // QR작성기능
-      MenuCard(
-        descript: 'timeSheet'.tr,
-        icon: Icons.schedule,
-        callback: () => routerProvider.changeScreen(context, ROUTER_WORKSHEET),
-      ),
     ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
