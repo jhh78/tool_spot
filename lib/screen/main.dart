@@ -6,9 +6,10 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
+import 'package:life_secretary/screen/holiday_calender.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/screen/address_translate.dart';
-import 'package:life_secretary/util/constants.dart';
+import 'package:life_secretary/util/styles.dart';
 import 'package:life_secretary/widget/menu.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
 
@@ -29,16 +30,19 @@ class _MainScreenState extends State<MainScreen> {
     ROUTER_HOME: () => MenuScreen(),
     ROUTER_QRREADER: () => const QrReaderScreen(),
     ROUTER_ADDRESSTRANSLATE: () => const AddressTranslate(),
+    ROUTER_HOLIDAY_CALENDER: () => const HolidayCalenderScreen(),
   };
 
   @override
   void initState() {
+    log('\t\t\t\t\t\t\t\t\t\t MainScreen screen init');
     super.initState();
     routerProvider.homeFocusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
+    log('\t\t\t\t\t\t\t\t\t\t MainScreen screen dispose');
     routerProvider.homeFocusNode.removeListener(_onFocusChange);
     routerProvider.homeFocusNode.dispose();
     super.dispose();
@@ -116,15 +120,15 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Align(
-          alignment: Alignment.center,
-          child: Obx(
-            () => adManager.bannerAd.value == null
-                ? const SizedBox(
+        padding: const EdgeInsets.all(0),
+        child: Obx(
+          () => adManager.bannerAd.value == null
+              ? const Center(
+                  child: SizedBox(
                     child: Text("Banner AD Area\nRelease Mode Only"),
-                  )
-                : AdWidget(ad: adManager.bannerAd.value!),
-          ),
+                  ),
+                )
+              : AdWidget(ad: adManager.bannerAd.value!),
         ),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
-import 'package:life_secretary/util/constants.dart';
+import 'package:life_secretary/util/styles.dart';
 
 class SettingMenu extends StatelessWidget {
   SettingMenu({

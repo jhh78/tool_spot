@@ -39,28 +39,28 @@ class DatabaseHelper {
       ''');
     }
 
-    if (oldVersion < 2) {
-      await db.execute('''
-        CREATE TABLE IF NOT EXISTS work_sheet(
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          date datetime,
-          ymd DATE,
-          start_time datetime,
-          end_time datetime
-        )
-      ''');
+    // if (oldVersion < 2) {
+    //   await db.execute('''
+    //     CREATE TABLE IF NOT EXISTS work_sheet(
+    //       id INTEGER PRIMARY KEY AUTOINCREMENT,
+    //       date datetime,
+    //       ymd DATE,
+    //       start_time datetime,
+    //       end_time datetime
+    //     )
+    //   ''');
 
-      await db.execute('''
-        CREATE TABLE IF NOT EXISTS break_time(
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          work_sheet_id INTEGER,
-          start_time datetime,
-          end_time datetime,
-          value INTEGER,
-          FOREIGN KEY(work_sheet_id) REFERENCES work_sheet(ymd) ON DELETE CASCADE
-        )
-      ''');
-    }
+    //   await db.execute('''
+    //     CREATE TABLE IF NOT EXISTS break_time(
+    //       id INTEGER PRIMARY KEY AUTOINCREMENT,
+    //       work_sheet_id INTEGER,
+    //       start_time datetime,
+    //       end_time datetime,
+    //       value INTEGER,
+    //       FOREIGN KEY(work_sheet_id) REFERENCES work_sheet(ymd) ON DELETE CASCADE
+    //     )
+    //   ''');
+    // }
 
     // if (oldVersion < 3) {
     //   await db.execute('''

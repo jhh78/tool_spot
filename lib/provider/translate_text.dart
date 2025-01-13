@@ -39,24 +39,12 @@ class TranslateText extends Translations {
           'addressTextFieldHinttext': '변환할 주소를 입력해주세요',
           'translateButton': '변환하기(-20pt)',
 
-          // 근무표
-          'timeSheetUnitHour': '시간',
-          'timeSheetUnitMinute': '분',
-          'timeSheet': '근무표',
-          'workSummary': '근무내역',
-          'workStart': '출근',
-          'workEnd': '퇴근',
-          'workRefresh': '휴식',
-          'workRefreshTimeSetting': '휴식시간 설정',
-          'workGraph': '통계',
-          'workTotal': '총시간',
-          'workTimeUpdateFail': '출근시간이 없거나\n퇴근시간이 존재합니다',
-          'workTimeDetail': '시간변경',
-          'workTimeUpdateFormUpdate': '근무시간 수정하기',
-          'workTimeAddNewItem': '시간추가',
-          'workTimeAddNewItemKind': '종류',
-          'workTimeAddNewItemHour': '시',
-          'workTimeAddNewItemMinute': '분',
+          // 나라별 휴일
+          'holidayCalender': '휴일',
+          'holidayCalenderTitle': '국가별 휴일',
+          'holidayCalenderNeedCountry': '휴일을 확인하려면 나라를 선택해주세요',
+          'holidayCalenderPrev': '작년',
+          'holidayCalenderNext': '내년',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -98,24 +86,12 @@ class TranslateText extends Translations {
           'addressTextFieldHinttext': '変換する住所を入力してください',
           'translateButton': '変換する（-20pt）',
 
-          // 勤務表
-          'timeSheetUnitHour': '時間',
-          'timeSheetUnitMinute': '分',
-          'timeSheet': '勤務表',
-          'workSummary': '勤務履歴',
-          'workStart': '出勤',
-          'workEnd': '退勤',
-          'workRefresh': '休憩',
-          'workRefreshTimeSetting': '休憩時間設定',
-          'workGraph': '統計',
-          'workTotal': '合計',
-          'workTimeUpdateFail': '出勤時間がないか\n退勤時間が存在します',
-          'workTimeDetail': '時間変更',
-          'workTimeUpdateFormUpdate': '勤務時間変更',
-          'workTimeAddNewItem': '時間追加',
-          'workTimeAddNewItemKind': '種類',
-          'workTimeAddNewItemHour': '時間',
-          'workTimeAddNewItemMinute': '分',
+          // 나라별 휴일
+          'holidayCalender': '休日',
+          'holidayCalenderTitle': '国別休日',
+          'holidayCalenderNeedCountry': '休日を確認するには国を選択してください',
+          'holidayCalenderPrev': '去年',
+          'holidayCalenderNext': '来年',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -157,24 +133,12 @@ class TranslateText extends Translations {
           'addressTextFieldHinttext': 'Enter the address to convert',
           'translateButton': 'Translate(-20pt)',
 
-          // time sheet
-          'timeSheetUnitHour': 'hour',
-          'timeSheetUnitMinute': 'minute',
-          'timeSheet': 'time sheet',
-          'workSummary': 'work summary',
-          'workStart': 'work start',
-          'workEnd': 'work end',
-          'workRefresh': 'work refresh',
-          'workRefreshTimeSetting': 'time setting',
-          'workGraph': 'work graph',
-          'workTotal': 'total',
-          'workTimeUpdateFail': 'There is no start time\nor there is an end time',
-          'workTimeDetail': 'time detail',
-          'workTimeUpdateFormUpdate': 'work time update',
-          'workTimeAddNewItem': 'add time',
-          'workTimeAddNewItemKind': 'kind',
-          'workTimeAddNewItemHour': 'hour',
-          'workTimeAddNewItemMinute': 'minute',
+          // 나라별 휴일
+          'holidayCalender': 'Holiday',
+          'holidayCalenderTitle': 'Holiday Calender',
+          'holidayCalenderNeedCountry': 'Please select a country to check the holiday',
+          'holidayCalenderPrev': 'Prev',
+          'holidayCalenderNext': 'Next',
         },
       };
 }

@@ -30,12 +30,14 @@ class _QrReaderScreenState extends State<QrReaderScreen> {
 
   @override
   void initState() {
+    log('\t\t\t\t\t\t\t\t\t\t QrReader screen init');
     super.initState();
     routerProvider.qrReaderFocusNode.addListener(_onFocusChange);
   }
 
   @override
   Future<void> dispose() async {
+    log('\t\t\t\t\t\t\t\t\t\t QrReader screen dispose');
     routerProvider.qrReaderFocusNode.removeListener(_onFocusChange);
     routerProvider.qrReaderFocusNode.dispose();
     await controller.dispose();

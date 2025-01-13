@@ -11,6 +11,7 @@ import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/provider/vender/open_ai.dart';
 import 'package:life_secretary/util/constants.dart';
+import 'package:life_secretary/util/styles.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/address_translate_history.dart';
 import 'package:life_secretary/widget/button/action.dart';
@@ -40,12 +41,14 @@ class _AddressTranslateState extends State<AddressTranslate> {
 
   @override
   void initState() {
+    log('\t\t\t\t\t\t\t\t\t\t AddressTranslate screen init');
     super.initState();
     routerProvider.addressTranslateFocusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
+    log('\t\t\t\t\t\t\t\t\t\t AddressTranslate screen dispose');
     routerProvider.addressTranslateFocusNode.removeListener(_onFocusChange);
     routerProvider.addressTranslateFocusNode.dispose();
     _addressController.dispose();

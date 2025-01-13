@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
-import 'package:life_secretary/util/constants.dart';
 import 'package:life_secretary/util/util.dart';
 import 'package:life_secretary/widget/menu_card.dart';
 
@@ -26,6 +25,12 @@ class MenuScreen extends StatelessWidget {
         descript: 'addressTranslate'.tr,
         icon: Icons.translate,
         callback: () => routerProvider.changeScreen(context, ROUTER_ADDRESSTRANSLATE),
+      ),
+
+      MenuCard(
+        descript: 'holidayCalender'.tr,
+        icon: Icons.calendar_month_outlined,
+        callback: () => routerProvider.changeScreen(context, ROUTER_HOLIDAY_CALENDER),
       ),
 
       // TODO: Add the following code to the MenuScreen widget
