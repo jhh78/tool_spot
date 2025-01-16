@@ -9,6 +9,7 @@ import 'package:life_secretary/provider/vender/ad.dart';
 import 'package:life_secretary/screen/holiday_calender.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/screen/address_translate.dart';
+import 'package:life_secretary/screen/zipcode_search.dart';
 import 'package:life_secretary/util/styles.dart';
 import 'package:life_secretary/widget/menu.dart';
 import 'package:life_secretary/widget/setting_menu.dart';
@@ -31,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
     ROUTER_QRREADER: () => const QrReaderScreen(),
     ROUTER_ADDRESSTRANSLATE: () => const AddressTranslate(),
     ROUTER_HOLIDAY_CALENDER: () => const HolidayCalenderScreen(),
+    ROUTER_ZIPCODE_SEARCH: () => const ZipcodeSearchScreen(),
   };
 
   @override

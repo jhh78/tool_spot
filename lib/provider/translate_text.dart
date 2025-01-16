@@ -45,6 +45,11 @@ class TranslateText extends Translations {
           'holidayCalenderNeedCountry': '휴일을 확인하려면 나라를 선택해주세요',
           'holidayCalenderPrev': '작년',
           'holidayCalenderNext': '내년',
+
+          // zip code search
+          'zipcodeSearchTitle': '우편번호검색',
+          'zipcodeSearchHintText': '하이픈(-)을 제외한 숫자만 입력해주세요',
+          'zipcodeSearchHelperText': '우편번호를 입력해주세요',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -92,6 +97,11 @@ class TranslateText extends Translations {
           'holidayCalenderNeedCountry': '休日を確認するには国を選択してください',
           'holidayCalenderPrev': '去年',
           'holidayCalenderNext': '来年',
+
+          // zip code search
+          'zipcodeSearchTitle': '郵便番号検索',
+          'zipcodeSearchHintText': 'ハイフン（-）を除いた数字のみを入力してください',
+          'zipcodeSearchHelperText': '郵便番号を入力してください',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -139,6 +149,11 @@ class TranslateText extends Translations {
           'holidayCalenderNeedCountry': 'Please select a country to check the holiday',
           'holidayCalenderPrev': 'Prev',
           'holidayCalenderNext': 'Next',
+
+          // zip code search
+          'zipcodeSearchTitle': 'Zip Code Search',
+          'zipcodeSearchHintText': 'Enter only numbers excluding hyphens (-)',
+          'zipcodeSearchHelperText': 'Enter the zip code',
         },
       };
 }

@@ -7,6 +7,7 @@ const String ROUTER_HOME = 'menu';
 const String ROUTER_QRREADER = 'qrReader';
 const String ROUTER_ADDRESSTRANSLATE = 'addressTranslate';
 const String ROUTER_HOLIDAY_CALENDER = 'holidayCalender';
+const String ROUTER_ZIPCODE_SEARCH = 'zipcodeSearch';
 
 class RouterProvider extends GetxService {
   RxInt screenIndex = 0.obs;
@@ -16,6 +17,7 @@ class RouterProvider extends GetxService {
   final FocusNode addressTranslateFocusNode = FocusNode();
   final FocusNode qrReaderFocusNode = FocusNode();
   final FocusNode holidayCalenderFocusNode = FocusNode();
+  final FocusNode zipcodeSearchFocusNode = FocusNode();
 
   void changeScreen(BuildContext context, String screen) {
     currentScreen.value = screen;
@@ -29,6 +31,8 @@ class RouterProvider extends GetxService {
       FocusScope.of(context).requestFocus(addressTranslateFocusNode);
     } else if (screen == ROUTER_HOLIDAY_CALENDER) {
       FocusScope.of(context).requestFocus(holidayCalenderFocusNode);
+    } else if (screen == ROUTER_ZIPCODE_SEARCH) {
+      FocusScope.of(context).requestFocus(zipcodeSearchFocusNode);
     }
   }
 
@@ -41,6 +45,8 @@ class RouterProvider extends GetxService {
       return "addressTranslate".tr;
     } else if (currentScreen.value == ROUTER_HOLIDAY_CALENDER) {
       return "holidayCalenderTitle".tr;
+    } else if (currentScreen.value == ROUTER_ZIPCODE_SEARCH) {
+      return "zipcodeSearchTitle".tr;
     }
 
     return "---";

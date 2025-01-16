@@ -8,6 +8,14 @@ const double ICON_SIZE_28 = 28;
 const double ICON_SIZE_32 = 32;
 const double ICON_SIZE_36 = 36;
 const double ICON_SIZE_40 = 40;
+const double ICON_SIZE_44 = 44;
+const double ICON_SIZE_48 = 48;
+const double ICON_SIZE_52 = 52;
+const double ICON_SIZE_56 = 56;
+const double ICON_SIZE_60 = 60;
+const double ICON_SIZE_64 = 64;
+const double ICON_SIZE_68 = 68;
+const double ICON_SIZE_72 = 72;
 
 const double FONT_SIZE_12 = 12.0;
 const double FONT_SIZE_14 = 14.0;
