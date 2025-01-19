@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:life_secretary/model/search_zipcode.dart';
 import 'package:life_secretary/util/styles.dart';
+import 'package:http/http.dart' as http;
 
 class ZipcodeSearchScreen extends StatefulWidget {
   const ZipcodeSearchScreen({super.key});
@@ -13,8 +17,9 @@ class ZipcodeSearchScreen extends StatefulWidget {
 }
 
 class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
-  final List<String> _zipCode = [];
+  final List<ZipResult> _zipCode = [];
   final TextEditingController _zipCodeController = TextEditingController();
+  final String jpBaseUrl = dotenv.env['JP_ZIPCODE_SEARCH_API']!;
   bool _isLoading = false;
   bool _isError = false;
 
@@ -31,12 +36,24 @@ class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
       _isLoading = true;
     });
 
+    final response = await http.get(Uri.parse('$jpBaseUrl?zipcode=${_zipCodeController.text}'));
+    final searchZipcode = SearchZipcode.fromJson(jsonDecode(response.body));
+
+    if (searchZipcode.status != 200 || searchZipcode.message != null) {
+      Get.snackbar('error'.tr, searchZipcode.message!, backgroundColor: Colors.red.shade400, colorText: Colors.white);
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    log('error: ${searchZipcode.toString()}');
     await Future.delayed(const Duration(seconds: 1));
 
     setState(() {
       _isLoading = false;
       _zipCode.clear();
-      _zipCode.addAll(['12345', '67890', '23456', '78901', '23456', '23456', '23456', '23456', '23456', '23456', '23456']);
+      _zipCode.addAll(searchZipcode.results!);
     });
   }
 
@@ -92,17 +109,18 @@ class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
         return const Divider();
       },
       itemBuilder: (BuildContext context, int index) {
+        final String address = "${_zipCode[index].address1}${_zipCode[index].address2}${_zipCode[index].address3}";
         return ListTile(
           trailing: IconButton(
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: _zipCode[index]));
-                Get.snackbar('copiedText'.tr, _zipCode[index]);
+                Clipboard.setData(ClipboardData(text: address));
+                Get.snackbar('copiedText'.tr, address);
               },
               icon: const Icon(
                 Icons.copy,
                 size: SPACE_SIZE_32,
               )),
-          title: Text(_zipCode[index]),
+          title: Text(address),
         );
       },
     );

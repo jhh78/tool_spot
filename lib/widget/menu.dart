@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/provider/router.dart';
@@ -14,6 +13,27 @@ class MenuScreen extends StatelessWidget {
   final SystemProvider systemProvider = Get.put(SystemProvider());
   final RouterProvider routerProvider = Get.put(RouterProvider());
 
+  List<MenuCard> onlyJPMenu(BuildContext context) {
+    if (Get.locale?.languageCode != 'ja') {
+      return [];
+    }
+
+    return [
+      MenuCard(
+        descript: 'zipcodeSearchTitle'.tr,
+        emoji: '〒',
+        callback: () => routerProvider.changeScreen(context, ROUTER_ZIPCODE_SEARCH),
+      ),
+    ];
+  }
+
+  List<MenuCard> onlyKRMenu(BuildContext context) {
+    if (Get.locale?.languageCode != 'ko') {
+      return [];
+    }
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<MenuCard> menuCards = [
@@ -27,21 +47,13 @@ class MenuScreen extends StatelessWidget {
         icon: Icons.translate,
         callback: () => routerProvider.changeScreen(context, ROUTER_ADDRESSTRANSLATE),
       ),
-
       MenuCard(
         descript: 'holidayCalender'.tr,
         icon: Icons.calendar_month_outlined,
         callback: () => routerProvider.changeScreen(context, ROUTER_HOLIDAY_CALENDER),
       ),
-
-      MenuCard(
-        descript: 'zipcodeSearchTitle'.tr,
-        emoji: '〒',
-        callback: () => routerProvider.changeScreen(context, ROUTER_ZIPCODE_SEARCH),
-      ),
-
-      // TODO: Add the following code to the MenuScreen widget
-      // QR작성기능
+      ...onlyJPMenu(context),
+      ...onlyKRMenu(context),
     ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
