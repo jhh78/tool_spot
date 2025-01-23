@@ -58,6 +58,12 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
         themeMode: systemProvider.themeMode.value,
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)), // 텍스트 스케일 팩터 고정
+            child: child!,
+          );
+        },
         home: UpgradeAlert(
           barrierDismissible: false,
           showIgnore: false,
