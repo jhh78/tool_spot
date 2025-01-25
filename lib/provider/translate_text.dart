@@ -50,6 +50,10 @@ class TranslateText extends Translations {
           'zipcodeSearchTitle': '우편번호검색',
           'zipcodeSearchHintText': '하이픈(-)을 제외한 숫자만 입력해주세요',
           'zipcodeSearchHelperText': '우편번호를 입력해주세요',
+
+          // 알람
+          'alarm': '알람',
+          'alarmTitle': '인실좃알람',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -102,6 +106,10 @@ class TranslateText extends Translations {
           'zipcodeSearchTitle': '郵便番号検索',
           'zipcodeSearchHintText': 'ハイフン（-）を除いた数字のみを入力してください',
           'zipcodeSearchHelperText': '郵便番号を入力してください',
+
+          // 알람
+          'alarm': 'アラーム',
+          'alarmTitle': '命懸アラーム',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -154,6 +162,10 @@ class TranslateText extends Translations {
           'zipcodeSearchTitle': 'Zip Code Search',
           'zipcodeSearchHintText': 'Enter only numbers excluding hyphens (-)',
           'zipcodeSearchHelperText': 'Enter the zip code',
+
+          // 알람
+          'alarm': 'Alarm',
+          'alarmTitle': 'Life Alarm',
         },
       };
 }

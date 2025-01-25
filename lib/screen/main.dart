@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/provider/system.dart';
 import 'package:life_secretary/provider/vender/ad.dart';
+import 'package:life_secretary/screen/alarm.dart';
 import 'package:life_secretary/screen/holiday_calender.dart';
 import 'package:life_secretary/screen/qr_reader.dart';
 import 'package:life_secretary/screen/address_translate.dart';
@@ -33,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
     ROUTER_ADDRESSTRANSLATE: () => const AddressTranslate(),
     ROUTER_HOLIDAY_CALENDER: () => const HolidayCalenderScreen(),
     ROUTER_ZIPCODE_SEARCH: () => const ZipcodeSearchScreen(),
+    ROUTER_ALARM: () => const LifeAlarmScreen(),
   };
 
   @override
