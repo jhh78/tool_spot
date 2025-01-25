@@ -109,7 +109,7 @@ class _HolidayCalenderScreenState extends State<HolidayCalenderScreen> {
       isLoading = true;
     });
 
-    final url = "${dotenv.env['HOLIDAY_API']}/$currentYear/$selectedCountry";
+    final url = "${dotenv.get('HOLIDAY_API')}/$currentYear/$selectedCountry";
     final response = await http.get(Uri.parse(url));
     final json = jsonDecode(response.body);
 

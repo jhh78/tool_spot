@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:life_secretary/model/search_zipcode.dart';
+import 'package:life_secretary/provider/router.dart';
 import 'package:life_secretary/util/styles.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,10 +19,36 @@ class ZipcodeSearchScreen extends StatefulWidget {
 
 class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
   final List<ZipResult> _zipCode = [];
+  final RouterProvider routerProvider = Get.put(RouterProvider());
   final TextEditingController _zipCodeController = TextEditingController();
-  final String jpBaseUrl = dotenv.env['JP_ZIPCODE_SEARCH_API']!;
+  final String jpBaseUrl = dotenv.get("JP_ZIPCODE_SEARCH_API")!;
   bool _isLoading = false;
   bool _isError = false;
+
+  @override
+  void initState() {
+    log('\t\t\t\t\t\t\t\t\t\t zipcodeSearch screen init');
+    super.initState();
+    routerProvider.zipcodeSearchFocusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    log('\t\t\t\t\t\t\t\t\t\t zipcodeSearch screen dispose');
+    routerProvider.zipcodeSearchFocusNode.removeListener(_onFocusChange);
+    routerProvider.zipcodeSearchFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (routerProvider.zipcodeSearchFocusNode.hasFocus) {
+      log('\t\t\t\t\t\t\t\t\t\t zipcodeSearch screen has focus');
+      _zipCodeController.clear();
+      setState(() {
+        _zipCode.clear();
+      });
+    }
+  }
 
   Future<void> fetchZipcodeResults() async {
     if (_zipCodeController.text.isEmpty) {
@@ -68,6 +95,7 @@ class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
             children: [
               Expanded(
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: _zipCodeController,
                   decoration: InputDecoration(
                     labelText: 'zipcodeSearchHelperText'.tr,

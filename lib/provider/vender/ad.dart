@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:life_secretary/provider/system.dart';
@@ -25,9 +26,9 @@ class ADManager extends GetxService {
 
   String getRewardADUnit() {
     if (Platform.isAndroid) {
-      return kReleaseMode ? "ca-app-pub-9674517651101637/7414309401" : "ca-app-pub-3940256099942544/5224354917";
+      return kReleaseMode ? dotenv.get("ADMOB_UNIT_ID_ANDROID_REWARDED") : "ca-app-pub-3940256099942544/5224354917";
     } else if (Platform.isIOS) {
-      return kReleaseMode ? "ca-app-pub-9674517651101637/1365003850" : "ca-app-pub-3940256099942544/1712485313";
+      return kReleaseMode ? dotenv.get("ADMOB_UNIT_ID_IOS_REWARDED") : "ca-app-pub-3940256099942544/1712485313";
     }
 
     throw Exception("Unsupported platform");
@@ -35,9 +36,9 @@ class ADManager extends GetxService {
 
   String getBannerADUnit() {
     if (Platform.isAndroid) {
-      return kReleaseMode ? "ca-app-pub-9674517651101637/5331071548" : "ca-app-pub-3940256099942544/6300978111";
+      return kReleaseMode ? dotenv.get("ADMOB_UNIT_ID_ANDDOID_BANNER") : "ca-app-pub-3940256099942544/6300978111";
     } else if (Platform.isIOS) {
-      return kReleaseMode ? "ca-app-pub-9674517651101637/9051922188" : "ca-app-pub-3940256099942544/2934735716";
+      return kReleaseMode ? dotenv.get("ADMOB_UNIT_ID_IOS_BANNER") : "ca-app-pub-3940256099942544/2934735716";
     }
 
     throw Exception("Unsupported platform");

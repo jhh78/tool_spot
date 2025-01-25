@@ -26,8 +26,8 @@ class AddressTranslate extends StatefulWidget {
 class _AddressTranslateState extends State<AddressTranslate> {
   final SystemProvider systemProvider = Get.put(SystemProvider());
   final OpenAiAndAssistantsProvider openAIProvider = OpenAiAndAssistantsProvider(
-    apiKey: dotenv.env['OPENAI_ADDRESS_TRANSLATE_API_KEY'].toString(),
-    assistantId: dotenv.env['OPENAI_ADDRESS_TRANSLATE_ASSISTANT_ID'].toString(),
+    apiKey: dotenv.get("OPENAI_ADDRESS_TRANSLATE_API_KEY"),
+    assistantId: dotenv.get('OPENAI_ADDRESS_TRANSLATE_ASSISTANT_ID'),
   );
   final ADManager adManager = Get.put(ADManager());
   final TextEditingController _addressController = TextEditingController();
