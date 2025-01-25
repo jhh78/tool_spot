@@ -52,11 +52,11 @@ class MenuScreen extends StatelessWidget {
         icon: Icons.calendar_month_outlined,
         callback: () => routerProvider.changeScreen(context, ROUTER_HOLIDAY_CALENDER),
       ),
-      MenuCard(
-        descript: 'alarm'.tr,
-        icon: Icons.alarm,
-        callback: () => routerProvider.changeScreen(context, ROUTER_ALARM),
-      ),
+      // MenuCard(
+      //   descript: 'alarm'.tr,
+      //   icon: Icons.alarm,
+      //   callback: () => routerProvider.changeScreen(context, ROUTER_ALARM),
+      // ),
       ...onlyJPMenu(context),
       ...onlyKRMenu(context),
     ];

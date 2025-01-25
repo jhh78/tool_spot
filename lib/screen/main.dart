@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
     ROUTER_ADDRESSTRANSLATE: () => const AddressTranslate(),
     ROUTER_HOLIDAY_CALENDER: () => const HolidayCalenderScreen(),
     ROUTER_ZIPCODE_SEARCH: () => const ZipcodeSearchScreen(),
-    ROUTER_ALARM: () => const LifeAlarmScreen(),
+    // ROUTER_ALARM: () => const LifeAlarmScreen(),
   };
 
   @override

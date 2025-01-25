@@ -21,7 +21,7 @@ class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
   final List<ZipResult> _zipCode = [];
   final RouterProvider routerProvider = Get.put(RouterProvider());
   final TextEditingController _zipCodeController = TextEditingController();
-  final String jpBaseUrl = dotenv.get("JP_ZIPCODE_SEARCH_API")!;
+  final String jpBaseUrl = dotenv.get("JP_ZIPCODE_SEARCH_API");
   bool _isLoading = false;
   bool _isError = false;
 
@@ -109,6 +109,7 @@ class _ZipcodeSearchScreenState extends State<ZipcodeSearchScreen> {
                   onPressed: fetchZipcodeResults,
                   icon: const Icon(
                     Icons.search,
+                    size: ICON_SIZE_40,
                   )),
             ],
           ),
