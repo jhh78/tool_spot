@@ -9,6 +9,7 @@ const String ROUTER_ADDRESSTRANSLATE = 'addressTranslate';
 const String ROUTER_HOLIDAY_CALENDER = 'holidayCalender';
 const String ROUTER_ZIPCODE_SEARCH = 'zipcodeSearch';
 const String ROUTER_ALARM = 'alarm';
+const String ROUTER_PICTURE_TO_PDF = 'pdfConverter';
 
 class RouterProvider extends GetxService {
   RxInt screenIndex = 0.obs;
@@ -20,6 +21,7 @@ class RouterProvider extends GetxService {
   final FocusNode holidayCalenderFocusNode = FocusNode();
   final FocusNode zipcodeSearchFocusNode = FocusNode();
   final FocusNode alarmFocusNode = FocusNode();
+  final FocusNode pictureToPdfFocusNode = FocusNode();
 
   void changeScreen(BuildContext context, String screen) {
     currentScreen.value = screen;
@@ -37,6 +39,8 @@ class RouterProvider extends GetxService {
       FocusScope.of(context).requestFocus(zipcodeSearchFocusNode);
     } else if (screen == ROUTER_ALARM) {
       FocusScope.of(context).requestFocus(homeFocusNode);
+    } else if (screen == ROUTER_PICTURE_TO_PDF) {
+      FocusScope.of(context).requestFocus(pictureToPdfFocusNode);
     }
   }
 

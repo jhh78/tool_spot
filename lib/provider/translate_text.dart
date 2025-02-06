@@ -54,6 +54,9 @@ class TranslateText extends Translations {
           // 알람
           'alarm': '알람',
           'alarmTitle': '인실좃알람',
+
+          // PDF변환
+          'pdfConverterTitle': 'PDF변환',
         },
         'ja_JP': {
           // 공통으로 사용됨
@@ -110,6 +113,9 @@ class TranslateText extends Translations {
           // 알람
           'alarm': 'アラーム',
           'alarmTitle': '命懸アラーム',
+
+          // PDF변환
+          'pdfConverterTitle': 'PDF変換',
         },
         'en_US': {
           // 공통으로 사용됨
@@ -166,6 +172,9 @@ class TranslateText extends Translations {
           // 알람
           'alarm': 'Alarm',
           'alarmTitle': 'Life Alarm',
+
+          // PDF변환
+          'pdfConverterTitle': 'PDF Converter',
         },
       };
 }

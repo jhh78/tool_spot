@@ -43,6 +43,11 @@ class MenuScreen extends StatelessWidget {
         callback: () => routerProvider.changeScreen(context, ROUTER_QRREADER),
       ),
       MenuCard(
+        descript: 'pdfConverterTitle'.tr,
+        icon: Icons.picture_as_pdf_outlined,
+        callback: () => routerProvider.changeScreen(context, ROUTER_PICTURE_TO_PDF),
+      ),
+      MenuCard(
         descript: 'addressTranslate'.tr,
         icon: Icons.translate,
         callback: () => routerProvider.changeScreen(context, ROUTER_ADDRESSTRANSLATE),
